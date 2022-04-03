@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {appStateType} from "../Store/reduxStore";
 
-export const Login= (props: any) => {
+export const Login = (props: any) => {
 
     const {handleSubmit, handleChange, values, touched, errors, handleBlur} = useFormik({
         initialValues: {

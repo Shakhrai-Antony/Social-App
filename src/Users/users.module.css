@@ -17,7 +17,7 @@
     text-decoration: none;
     position: absolute;
     top: 100px;
-    right: 25%;
+    right: 35%;
     --size: 32px;
     --margin: 6px;
     margin: 0 var(--margin);

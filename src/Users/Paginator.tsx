@@ -10,7 +10,7 @@ type paginatorType = {
     pagesSize: number
     currentPage: number
     onPageChanged: (p: number) => void
-    onFilterChanged:(filter: string) => void
+    onFilterChanged:(filter: string, isFriend: boolean) => void
 }
 
 const Paginator:React.FC<paginatorType> = (props) => {
@@ -42,7 +42,7 @@ const Paginator:React.FC<paginatorType> = (props) => {
                 portions > portionNumber && <button onClick={() => setPortionNumber(portionNumber + 1)}>Next</button>
             }
             <div>
-            <UsersForm onFilterChanged={props.onFilterChanged}/>
+            <UsersForm onFilterChanged={props.onFilterChanged} totalItems={props.totalItems}/>
             </div>
         </div>
     )

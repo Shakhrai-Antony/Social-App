@@ -14,7 +14,7 @@ type usersProfileType = {
     isFollowingProgress: Array<number>
     unfollowUserThunkCreator: (userId: number) => void
     followUsersThunkCreator: (userId: number) => void
-    onFilterChanged:(filter: string) => void
+    onFilterChanged:(filter: string, isFriend: boolean) => void
 }
 
 const UsersProfile: React.FC<usersProfileType> = (props) => {

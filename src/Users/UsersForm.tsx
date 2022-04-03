@@ -2,25 +2,25 @@ import React from "react";
 import {Field, FormikProvider, useFormik} from "formik";
 import s from './usersForm.module.css'
 
-const UsersForm = (props: any) => {
+const UsersForm = React.memo((props: any) => {
     const formik = useFormik({
         initialValues: {
             term: '',
-            friend: null
+            friendStatus: null,
         },
         onSubmit: (values) => {
-            props.onFilterChanged(values.term, values.friend)
+            props.onFilterChanged(values.term, values.friendStatus)
         }
     })
     return (
         <FormikProvider value={formik}>
             <form onSubmit={formik.handleSubmit}>
-                <Field as="select" name="friend">
-                    <option value="red">Red</option>
-                    <option value="green">Green</option>
-                    <option value="blue">Blue</option>
-                </Field>
                 <div className={s.usersForm}>
+                    <Field as="select" name="friendStatus" value={formik.values.friendStatus}>
+                        <option value="null">All</option>
+                        <option value="false">Unfollowed</option>
+                        <option value="true">Followed</option>
+                    </Field>
                     <input type='term' name='term' value={formik.values.term} onChange={formik.handleChange}/>
                     <button type='submit'>find</button>
                 </div>
@@ -29,5 +29,5 @@ const UsersForm = (props: any) => {
 
     )
 }
-
+)
 export default UsersForm

@@ -23,7 +23,8 @@ let initialState = {
     currentPage: 1,
     isFetching: false,
     isFollowingProgress: [] as Array<number>,
-    term: '' as string
+    term: '' as string,
+    friend: null as null | boolean
 }
 
 export type initialStateType = typeof initialState
@@ -83,7 +84,8 @@ const usersReducer = (state = initialState, action: usersReducerActionType): ini
         case 'SET_USERS_TERM':
             return {
                 ...state,
-                term: action.term
+                term: action.term,
+                friend: action.isFriend
             }
         default:
             return state
@@ -118,8 +120,8 @@ export const usersReducerActions = {
     isFollowingInProgress: (fetching:boolean, usersId:number) => {
         return ({type: 'SET_IS_FOLLOWING', fetching, usersId} as const)
     },
-    setUsersByTerm: (term: string) => {
-        return ({type: 'SET_USERS_TERM', term} as const)
+    setUsersByTerm: (term: string, isFriend: boolean) => {
+        return ({type: 'SET_USERS_TERM', term, isFriend} as const)
     }
 }
 
@@ -127,12 +129,12 @@ export const usersReducerActions = {
 type usersReducerThunkType = ThunkAction<void, appStateType, unknown, usersReducerActionType>
 type usersReducerDispatchType = Dispatch<usersReducerActionType>
 
-export const setUsersThunkCreator = (pageNumber:number, pagesSize:number, term:string): usersReducerThunkType => {
+export const setUsersThunkCreator = (pageNumber:number, pagesSize:number, term:string, isFriend:boolean): usersReducerThunkType => {
     return (dispatch: usersReducerDispatchType) => {
         dispatch(usersReducerActions.setIsFetching(true))
         dispatch(usersReducerActions.setCurrentPage(pageNumber))
-        dispatch(usersReducerActions.setUsersByTerm(term))
-        getUsersAPI.setUsersAPI(pageNumber, pagesSize, term).then(data => {
+        dispatch(usersReducerActions.setUsersByTerm(term, isFriend))
+        getUsersAPI.setUsersAPI(pageNumber, pagesSize, term, isFriend).then(data => {
             dispatch(usersReducerActions.setIsFetching(false))
             dispatch(usersReducerActions.setUsers(data.items))
 

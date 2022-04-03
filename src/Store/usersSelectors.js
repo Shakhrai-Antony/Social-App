@@ -29,3 +29,7 @@ export const setUsersFilter = (state) => {
     return state.usersPage.term
 }
 
+export const setIsFriend = (state) => {
+    return state.usersPage.friend
+}
+

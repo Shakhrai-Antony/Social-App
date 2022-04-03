@@ -29,6 +29,7 @@ type getUsersAPIType = {
     term: string
     totalCount: number
     resultCode: ResultCodesEnum
+    isFriend: boolean
 }
 
 export const getUsersAPI = {
@@ -53,8 +54,11 @@ export const getUsersAPI = {
             )
         })
     },
-    setUsersAPI(pageNumber: number, pagesSize: number, term: string) {
-        return instance.get<getUsersAPIType>((`users?page=${pageNumber}&count=${pagesSize}&term=${term}`)).then(response => {
+    setUsersAPI(pageNumber: number, pagesSize: number, term: string, isFriend:boolean) {
+        console.log(isFriend)
+        return instance.get<getUsersAPIType>((`users?page=${pageNumber}&count=${pagesSize}&term=${term}`
+            + (isFriend === null ? '' : `&friend=${isFriend}`)))
+            .then(response => {
             return (
                 response.data
             )

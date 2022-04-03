@@ -14,7 +14,7 @@ import {
     getTotalUsersCount,
     getUsers, requestIsAuth,
     requestIsFetching,
-    requestIsFollowingProgress, setUsersFilter
+    requestIsFollowingProgress, setIsFriend, setUsersFilter
 } from "../Store/usersSelectors";
 import {usersType} from "../Store/dialogsReducer";
 
@@ -25,10 +25,10 @@ class UsersContainer extends React.Component<propsType> {
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setUsersThunkCreator(pageNumber, this.props.pagesSize, this.props.term)
+        this.props.setUsersThunkCreator(pageNumber, this.props.pagesSize, this.props.term, this.props.friend)
     }
-    onFilterChanged = (term: string) => {
-        this.props.setUsersThunkCreator(1, this.props.pagesSize, term)
+    onFilterChanged = (term: string, isFriend: boolean) => {
+        this.props.setUsersThunkCreator(1, this.props.pagesSize, term, isFriend)
     }
 
     render() {
@@ -54,12 +54,12 @@ type propsType = mapDispatchToPropsType & mapStateToPropsType & ownPropsType
 type ownPropsType = {
     pageNumber: number
     onPageChanged: (pageNumber: number, term: string) => void
-    onFilterChanged: (filter: string) => void
+    onFilterChanged: (term: string, isFriend: boolean) => void
 }
 
 type mapDispatchToPropsType = {
     setTotalUsersThunkCreator: (currentPage: number, pageSize: number) => void
-    setUsersThunkCreator: (pageNumber: number, pageSize: number, term: string) => void
+    setUsersThunkCreator: (pageNumber: number, pageSize: number, term: string, isFriend:boolean) => void
     unfollowUserThunkCreator: (userId: number) => void
     followUsersThunkCreator: (userId: number) => void
 
@@ -74,6 +74,7 @@ type mapStateToPropsType = {
     isFollowingProgress: Array<number>
     isAuth: boolean
     term: string
+    friend: boolean
 }
 
 let mapStateToProps = (state: any): mapStateToPropsType => {
@@ -85,7 +86,8 @@ let mapStateToProps = (state: any): mapStateToPropsType => {
         isFetching: requestIsFetching(state),
         isFollowingProgress: requestIsFollowingProgress(state),
         isAuth: requestIsAuth(state),
-        term: setUsersFilter(state)
+        term: setUsersFilter(state),
+        friend: setIsFriend(state)
     }
 }
 
