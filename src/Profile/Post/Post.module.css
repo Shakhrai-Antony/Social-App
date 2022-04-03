@@ -1,0 +1,9 @@
+.post {
+    color: white;
+    padding: 10px;
+}
+.postAva img {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}

@@ -1,0 +1,18 @@
+.form {
+    display: block;
+    width: 400px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-image: none;
+    border-radius: 4px;
+}
+
+.formControl {
+    margin-bottom: 20px;
+}
+
+.error{
+    color: red;
+}
