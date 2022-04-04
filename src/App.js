@@ -1,5 +1,5 @@
 import s from './App.module.css'
-import React from 'react'
+import React, {useEffect} from 'react'
 import Sidebar from "./Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
@@ -13,17 +13,12 @@ import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
 
 
-
-class App extends React.Component {
-
-    componentDidMount() {
-        this.props.initializedSuccess()
-    }
-
-    render () {
-        if (!this.props.initialized){
+const App = (props) => {
+        useEffect(() => {
+            props.initializedSuccess()
+        })
+        if (!props.initialized)
             return <Preloader/>
-        };
         return (
             <BrowserRouter>
                 <div className={s.appWrapper}>
@@ -40,9 +35,8 @@ class App extends React.Component {
                     </div>
                 </div>
             </BrowserRouter>
-        );
+        )
     }
-}
 
 let mapStateToProps = (state) => {
     return {

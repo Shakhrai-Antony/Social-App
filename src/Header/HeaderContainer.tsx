@@ -4,14 +4,10 @@ import {connect} from "react-redux";
 import { setLogOutUserThunkCreator} from "../Store/authReducer";
 import {appStateType} from "../Store/reduxStore";
 
-
-
-class HeaderContainer extends React.Component<propsType> {
-    render() {
+const HeaderContainer: React.FC<propsType> = (props) => {
         return (
-            <Header {...this.props} setLogOutUserThunkCreator={this.props.setLogOutUserThunkCreator}/>
+            <Header {...props} setLogOutUserThunkCreator={props.setLogOutUserThunkCreator}/>
         )
-    }
 }
 
 type propsType = mapStateToPropsType & mapDispatchToPropsType
@@ -25,15 +21,12 @@ type mapDispatchToPropsType = {
     setLogOutUserThunkCreator: () => void
 }
 
-
 let mapStateToProps = (state: appStateType): mapStateToPropsType => {
     return {
         login: state.auth.login,
         isAuth: state.auth.isAuth,
     }
 }
-
-
 
 export default connect<mapStateToPropsType,mapDispatchToPropsType,appStateType>
     // @ts-ignore

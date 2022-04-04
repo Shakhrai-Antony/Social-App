@@ -2,39 +2,33 @@ import React, {useEffect} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
-    getNewStatusThunkCreator, messagesType, profileType, setNewPhotoThunkCreator,
+    getNewStatusThunkCreator, profileType, setNewPhotoThunkCreator,
     setNewStatusThunkCreator,
     setUsersProfileThunkCreator,
 } from "../Store/profileReducer";
 
-import { useMatch, useNavigate} from "react-router-dom";
+import {useMatch, useNavigate} from "react-router-dom";
 import {appStateType} from "../Store/reduxStore";
 
-class ProfileContainer extends React.Component<ProfileContainerType> {
+const ProfileContainer: React.FC<ProfileContainerType> = (props) => {
 
-    refreshProfile(){
-        let userId = this.props.match ? this.props.match.params.userId : this.props.id;
-        this.props.setUsersProfileThunkCreator(userId)
-        this.props.getNewStatusThunkCreator(userId)
-    }
-
-    componentDidMount() {
-        this.refreshProfile()
-    }
-    componentDidUpdate(prevProps:any, prevState:any, snapshot:any) {
-        if (this.props.match !== prevProps.match ) {
-            this.refreshProfile()
-        }
+    let refreshProfile = () => {
+        let userId = props.match ? props.match.params.userId : props.id;
+        props.setUsersProfileThunkCreator(userId)
+        props.getNewStatusThunkCreator(userId)
     }
 
-    render () {
-        return (
-            <Profile profile={this.props.profile} status={this.props.status}
-                     setNewStatusThunkCreator={this.props.setNewStatusThunkCreator}
-                     setNewPhotoThunkCreator={this.props.setNewPhotoThunkCreator}
-                     isOwner={this.props.match === null}/>
-        )
-    }
+    useEffect(() => {
+        refreshProfile()
+    }, [props.match])
+
+    return (
+        <Profile profile={props.profile} status={props.status}
+                 setNewStatusThunkCreator={props.setNewStatusThunkCreator}
+                 setNewPhotoThunkCreator={props.setNewPhotoThunkCreator}
+                 isOwner={props.match === null}/>
+    )
+
 }
 
 type ProfileContainerType = {
@@ -85,10 +79,10 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => {
     }
 }
 
-
-export default connect<mapStateToPropsType,mapDispatchToPropsType,appStateType>
+export default connect<mapStateToPropsType, mapDispatchToPropsType, appStateType>
     // @ts-ignore
-(mapStateToProps, {
-     setUsersProfileThunkCreator, getNewStatusThunkCreator,
-    setNewStatusThunkCreator, setNewPhotoThunkCreator})
-(ProfileURLMatch)
+    (mapStateToProps, {
+        setUsersProfileThunkCreator, getNewStatusThunkCreator,
+        setNewStatusThunkCreator, setNewPhotoThunkCreator
+    })
+    (ProfileURLMatch)

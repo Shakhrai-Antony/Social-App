@@ -17,7 +17,7 @@ import {
     requestIsFollowingProgress, setIsFriend, setUsersFilter
 } from "../Store/usersSelectors";
 import {usersType} from "../Store/dialogsReducer";
-
+import {appStateType} from "../Store/reduxStore";
 
 class UsersContainer extends React.Component<propsType> {
     componentDidMount() {
@@ -91,31 +91,6 @@ let mapStateToProps = (state: any): mapStateToPropsType => {
     }
 }
 
-
-/*let mapDispatchToProps = (dispatch) => {
-    return {
-        onFollowUsers: (usersId) => {
-            dispatch(followAC(usersId))
-        },
-        onUnfollowUsers: (usersId) => {
-            dispatch(unfollowAC(usersId))
-        },
-        setNewUsers: (users) => {
-            dispatch(setUsersAC(users))
-        },
-        setAllUsersCount:(users) => {
-            dispatch(setTotalUsersCountAC(users))
-        },
-        setPage: (page) => {
-            dispatch(setCurrentPageAC(page))
-        },
-        setIsFetching: (fetching) => {
-            dispatch(setIsFetchingAC(fetching))
-        }
-    }
-}*/
-
-
 /*
 const loginUsersRedirect = (props) => {
     let navigate = useNavigate()
@@ -127,8 +102,7 @@ const loginUsersRedirect = (props) => {
     return <UsersContainer {...props} />
 }*/
 
-
-export default connect<mapStateToPropsType, mapDispatchToPropsType>
+export default connect<mapStateToPropsType, mapDispatchToPropsType, appStateType>
 (mapStateToProps, {
     setUsersThunkCreator, setTotalUsersThunkCreator,
     unfollowUserThunkCreator, followUsersThunkCreator

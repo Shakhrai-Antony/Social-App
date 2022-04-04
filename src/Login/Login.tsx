@@ -30,7 +30,7 @@ export const Login = (props: any) => {
             <div className={s.formControl}>
                 <input placeholder='email' name='email' onChange={handleChange}
                        value={values.email} onBlur={handleBlur}/>
-                   {touched.email && errors.email ?
+                {touched.email && errors.email ?
                     <div className={s.error}>{errors.email}</div> : null}
             </div>
             <div className={s.formControl}>
@@ -54,22 +54,16 @@ export const Login = (props: any) => {
     )
 }
 
-
-
-class LoginForm extends React.Component<loginFormType> {
-    componentDidMount() {
-        this.props.getCaptchaSuccessThunkCreator()
+const LoginForm: React.FC<loginFormType> = (props) => {
+    useEffect(() => {
+        props.getCaptchaSuccessThunkCreator()
+    })
+    let onSubmit = (email: string, password: string, rememberMe: boolean | string, captchaValue: string) => {
+        props.setLogInUserThunkCreator(email, password, rememberMe, captchaValue)
     }
-
-    onSubmit = (email: string, password: string, rememberMe: boolean | string, captchaValue: string) => {
-        this.props.setLogInUserThunkCreator(email, password, rememberMe, captchaValue)
-    }
-
-    render () {
-        return (
-            <Login {...this.props} onSubmit={this.onSubmit}/>
-        )
-    }
+    return (
+        <Login {...props} onSubmit={onSubmit}/>
+    )
 }
 
 type loginFormType = {
@@ -77,8 +71,7 @@ type loginFormType = {
     getCaptchaSuccessThunkCreator: () => void
 }
 
-
-const loginUsersRedirect:React.FC<propsType> = (props) => {
+const loginUsersRedirect: React.FC<propsType> = (props) => {
     let navigate = useNavigate()
     useEffect(() => {
         if (props.isAuth) {
@@ -107,8 +100,7 @@ let mapStateToProps = (state: appStateType): mapStateToPropsType => {
     }
 }
 
-
-export const LoginContainer = connect<mapStateToPropsType,mapDispatchToPropsType,appStateType>
+export const LoginContainer = connect<mapStateToPropsType, mapDispatchToPropsType, appStateType>
     // @ts-ignore
-(mapStateToProps, {setLogInUserThunkCreator, getCaptchaSuccessThunkCreator})
-(loginUsersRedirect)
+    (mapStateToProps, {setLogInUserThunkCreator, getCaptchaSuccessThunkCreator})
+    (loginUsersRedirect)

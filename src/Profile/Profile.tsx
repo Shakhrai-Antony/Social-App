@@ -1,8 +1,7 @@
 import React from "react";
-// @ts-ignore
 import s from './Profile.module.css'
 import MyPostsContainer from "./MyPosts/myPostsContainer";
-import {messagesType, profileType} from "../Store/profileReducer";
+import {profileType} from "../Store/profileReducer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
