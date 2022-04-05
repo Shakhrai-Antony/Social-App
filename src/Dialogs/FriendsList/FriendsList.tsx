@@ -1,8 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
-// @ts-ignore
 import s from "../Dialogs.module.css";
-
 
 type friendsListProps = {
     id: number,
@@ -16,6 +14,5 @@ const FriendsList: React.FC<friendsListProps> = (props) => {
         </div>
     )
 }
-
 
 export default FriendsList

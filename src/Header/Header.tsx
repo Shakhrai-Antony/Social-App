@@ -1,28 +1,32 @@
 import React from "react";
-// @ts-ignore
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
-
+import {useDispatch, useSelector} from "react-redux";
+import {loginSelector} from "../Store/loginSelectors";
+import {requestIsAuth} from "../Store/usersSelectors";
+import {setLogOutUserThunkCreator} from "../Store/authReducer";
 
 type headerType = {
-    isAuth: boolean
-    login: string | null
-    setLogOutUserThunkCreator: () => void
+    onLogOutUser: () => void
 }
 
-const Header: React.FC<headerType> = (props) => {
+export const Header: React.FC<headerType> = (props) => {
+    const login = useSelector(loginSelector)
+    const isAuth = useSelector(requestIsAuth)
+    const dispatch = useDispatch()
+    const onLogOutUser = () => {
+        dispatch(setLogOutUserThunkCreator)
+    }
 
     return (
         <header className={s.header}>
             <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitter_Logo.png"/>
             <div className={s.loginBlock}>
-                {   props.isAuth
-                    ? <div>{props.login} - <button onClick={props.setLogOutUserThunkCreator}>Log out</button></div>
+                {   isAuth
+                    ? <div>{login} - <button onClick={onLogOutUser}>Log out</button></div>
                     : <NavLink to='/login'>Login</NavLink>
                 }
             </div>
         </header>
     )
 }
-
-export default Header

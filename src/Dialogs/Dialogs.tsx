@@ -3,9 +3,10 @@ import s from './Dialogs.module.css'
 import FriendsList from "./FriendsList/FriendsList";
 import MessagesList from "./MessagesList/MessagesList";
 import {useDispatch, useSelector} from "react-redux";
-import {getDialogs, getNewDialogsMessage, getUsers, isUserAuth} from "../Store/dialogsSelectors";
+import {getDialogs, getNewDialogsMessage, getUsers} from "../Store/dialogsSelectors";
 import {dialogsReducerActions} from "../Store/dialogsReducer";
 import {useNavigate} from "react-router-dom";
+import {requestIsAuth} from "../Store/usersSelectors";
 
 type dialogsStateType = {
     onChangeNewMessage: (text: string) => void
@@ -54,7 +55,7 @@ export const Dialogs: React.FC<dialogsStateType> = (props) => {
 }
 
 export const LoginDialogsRedirect = (props:any) => {
-    const isAuth = useSelector(isUserAuth)
+    const isAuth = useSelector(requestIsAuth)
     let navigate = useNavigate()
     useEffect(() => {
         if (!isAuth) {

@@ -11,7 +11,3 @@ export const getDialogs = (state: appStateType) => {
 export const getNewDialogsMessage = (state: appStateType) => {
     return state.dialogsPage.newDialogMessage
 }
-
-export const isUserAuth = (state: appStateType) => {
-    return state.auth.isAuth
-}

@@ -4,13 +4,13 @@ import Sidebar from "./Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
 import ProfileContainer from "./Profile/ProfileContainer";
-import HeaderContainer from "./Header/HeaderContainer";
 import {LoginContainer} from "./Login/Login";
 import {connect} from "react-redux";
 import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
 import {UsersContainer} from "./Users/usersContainer";
 import {LoginDialogsRedirect} from "./Dialogs/Dialogs";
+import {Header} from "./Header/Header";
 
 
 const App = (props) => {
@@ -22,7 +22,7 @@ const App = (props) => {
         return (
             <BrowserRouter>
                 <div className={s.appWrapper}>
-                    <HeaderContainer/>
+                    <Header/>
                     <Sidebar/>
                     <div className={s.appWrapperContent}>
                         <Routes>

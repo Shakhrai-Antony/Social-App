@@ -1,13 +1,10 @@
 import React from "react";
-// @ts-ignore
 import s from "../Dialogs.module.css";
-
 
 type messagesList = {
     message: string
     id?: number
 }
-
 
 const MessagesList: React.FC<messagesList> = (props) => {
     return (
@@ -16,9 +13,5 @@ const MessagesList: React.FC<messagesList> = (props) => {
         </div>
     )
 }
-
-
-
-
 
 export default MessagesList
