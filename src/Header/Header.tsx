@@ -6,20 +6,17 @@ import {loginSelector} from "../Store/loginSelectors";
 import {requestIsAuth} from "../Store/usersSelectors";
 import {setLogOutUserThunkCreator} from "../Store/authReducer";
 
-type headerType = {
-    onLogOutUser: () => void
-}
 
-export const Header: React.FC<headerType> = (props) => {
+export const Header:React.FC = (props) => {
     const login = useSelector(loginSelector)
     const isAuth = useSelector(requestIsAuth)
     const dispatch = useDispatch()
     const onLogOutUser = () => {
-        dispatch(setLogOutUserThunkCreator)
+        dispatch(setLogOutUserThunkCreator())
     }
     useEffect(() => {
-        onLogOutUser()
-    }, [])
+        setLogOutUserThunkCreator()
+    }, [isAuth])
 
     return (
         <header className={s.header}>

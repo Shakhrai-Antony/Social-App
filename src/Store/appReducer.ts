@@ -27,6 +27,7 @@ export const actions = {
     }
 }
 
+let b = 'privet'
 type appReducerActionType = InferActionsTypes<typeof actions>
 
 

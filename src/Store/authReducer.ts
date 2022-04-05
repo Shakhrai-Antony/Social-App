@@ -18,8 +18,7 @@ const authReducer = (state = initialState, action: authReducerActionType): initi
         case 'SET_AUTH_DATA':
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.data
             }
         case 'SET_CAPTCHA':
             return {
@@ -53,7 +52,7 @@ export const setAuthUserDataThunkCreator = () => {
     }
 }
 
-export const setLogInUserThunkCreator = (email:string, password:string, rememberMe:boolean | number, captcha:string) => {
+export const setLogInUserThunkCreator = (email:string, password:string, rememberMe:boolean, captcha:string) => {
     return (dispatch: any) => {
         userValidationAPI.logInUser(email, password, rememberMe, captcha).then(data => {
             if (data.resultCode === 0) {
@@ -66,6 +65,7 @@ export const setLogInUserThunkCreator = (email:string, password:string, remember
 export const setLogOutUserThunkCreator = () => {
     return (dispatch:any) => {
         userValidationAPI.logOutUser().then(data => {
+            console.log(data)
             if (data.resultCode === 0) {
                 dispatch(authReducerActions.setAuthUserData(null, null, null, false))
             }

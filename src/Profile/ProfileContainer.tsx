@@ -47,7 +47,7 @@ const ProfileURLMatch: React.FC<propsType> = (props) => {
     let navigate = useNavigate()
     useEffect(() => {
         if (!props.isAuth) {
-            return navigate('/Login')
+            return navigate('/login')
         }
     })
     // @ts-ignore

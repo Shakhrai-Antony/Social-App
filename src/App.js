@@ -4,13 +4,13 @@ import Sidebar from "./Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
 import ProfileContainer from "./Profile/ProfileContainer";
-import {LoginContainer} from "./Login/Login";
 import {connect} from "react-redux";
 import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
 import {UsersContainer} from "./Users/usersContainer";
 import {LoginDialogsRedirect} from "./Dialogs/Dialogs";
 import {Header} from "./Header/Header";
+import {LoginRedirect} from "./Login/Login";
 
 
 const App = (props) => {
@@ -22,15 +22,15 @@ const App = (props) => {
         return (
             <BrowserRouter>
                 <div className={s.appWrapper}>
-                    <Header/>
+                    <Header />
                     <Sidebar/>
                     <div className={s.appWrapperContent}>
                         <Routes>
-                            <Route path='Profile' element={<ProfileContainer/>}/>
-                            <Route path='Profile/:userId' element={<ProfileContainer/>}/>
-                            <Route path='/Dialogs/*' element={<LoginDialogsRedirect/>}/>
-                            <Route path='/Users' element={<UsersContainer/>}/>
-                            <Route path='/login' element={<LoginContainer/>}/>
+                            <Route path='profile' element={<ProfileContainer/>}/>
+                            <Route path='profile/:userId' element={<ProfileContainer/>}/>
+                            <Route path='/dialogs/*' element={<LoginDialogsRedirect/>}/>
+                            <Route path='/users' element={<UsersContainer/>}/>
+                            <Route path='/login' element={<LoginRedirect/>}/>
                         </Routes>
                     </div>
                 </div>

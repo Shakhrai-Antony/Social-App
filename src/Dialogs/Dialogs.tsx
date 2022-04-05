@@ -59,9 +59,9 @@ export const LoginDialogsRedirect = (props:any) => {
     let navigate = useNavigate()
     useEffect(() => {
         if (!isAuth) {
-            return navigate('/Login')
+            return navigate('/login')
         }
-    },[])
+    },[isAuth])
     return <Dialogs {...props} />
 }
 

@@ -65,13 +65,13 @@ export const Login = (props: any) => {
     )
 }
 
-export const loginUsersRedirect: React.FC = (props) => {
+export const LoginRedirect: React.FC = (props) => {
     const isAuth = useSelector(loginSelector)
     let navigate = useNavigate()
     useEffect(() => {
         if (isAuth) {
-            return navigate('/Profile')
+            return navigate('/profile')
         }
-    }, [])
-    return <Login {...props} />
+    }, [isAuth])
+    return <Login />
 }
