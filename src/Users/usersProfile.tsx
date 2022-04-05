@@ -3,34 +3,31 @@ import Paginator from "./Paginator";
 import Users from "./Users";
 import {usersType} from "../Store/dialogsReducer";
 import UsersForm from "./UsersForm";
+import {useSelector} from "react-redux";
+import {getTotalUsersCount, getUsers, requestIsFollowingProgress} from "../Store/usersSelectors";
+import {usersReducerStateType} from "../Store/usersReducer";
 
 
 type usersProfileType = {
-    users: Array<usersType>
     currentPage: number
     onPageChanged: (pageNumber: number) => void
-    totalItems: number
     pagesSize: number
-    isFollowingProgress: Array<number>
-    unfollowUserThunkCreator: (userId: number) => void
-    followUsersThunkCreator: (userId: number) => void
     onFilterChanged:(filter: string, isFriend: boolean) => void
 }
 
 const UsersProfile: React.FC<usersProfileType> = (props) => {
+    const users = useSelector(getUsers)
+    const totalItems = useSelector(getTotalUsersCount)
+    const isFollowingProgress = useSelector(requestIsFollowingProgress)
 
     return <div>
 
         <div>
-            <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItems={props.totalItems}
+            <Paginator currentPage={props.currentPage} onPageChanged={props.onPageChanged} totalItems={totalItems}
                        pagesSize={props.pagesSize} onFilterChanged={props.onFilterChanged}/>
         </div>
 
-        {props.users.map(u => <Users u={u} key={u.id}
-                                        isFollowingProgress={props.isFollowingProgress}
-                                        unfollowUserThunkCreator={props.unfollowUserThunkCreator}
-                                        followUsersThunkCreator={props.followUsersThunkCreator}
-                                        />)
+        {users.map(u => <Users u={u} key={u.id} isFollowingProgress={isFollowingProgress}/>)
         }
     </div>
 }

@@ -1,36 +1,26 @@
 import React, {useEffect} from "react";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {
-    followUsersThunkCreator,
     setTotalUsersThunkCreator,
-    unfollowUserThunkCreator,
     setUsersThunkCreator
 } from "../Store/usersReducer";
 import UsersProfile from "./usersProfile";
 import Preloader from "../common/preloader/Peloader";
 import {
-    getCurrentPage,
-    getPagesSize,
-    getTotalUsersCount,
-    getUsers, requestIsAuth,
-    requestIsFetching,
-    requestIsFollowingProgress, setIsFriend, setUsersFilter
+    getCurrentPage, getPagesSize, requestIsFetching, setIsFriend, setUsersFilter
 } from "../Store/usersSelectors";
-import {usersType} from "../Store/dialogsReducer";
-import {appStateType} from "../Store/reduxStore";
 
-const UsersContainer:React.FC<propsType> = (props) => {
-
+export const UsersContainer:React.FC<propsType> = (props) => {
     const dispatch = useDispatch()
     const currentPage = useSelector(getCurrentPage)
     const pagesSize = useSelector(getPagesSize)
     const term = useSelector(setUsersFilter)
     const friend = useSelector(setIsFriend)
+    const isFetching = useSelector(requestIsFetching)
 
     useEffect(() => {
         dispatch(setTotalUsersThunkCreator(currentPage, pagesSize))
     }, [])
-
     const onPageChanged = (pageNumber: number) => {
         dispatch(setUsersThunkCreator(pageNumber, pagesSize, term, friend))
     }
@@ -39,50 +29,25 @@ const UsersContainer:React.FC<propsType> = (props) => {
     }
         return (
             <>
-                {props.isFetching ? <Preloader/> : null}
+                {isFetching ? <Preloader/> : null}
                 <UsersProfile
                     currentPage={currentPage} onPageChanged={onPageChanged}
-                    users={props.users} totalItems={props.totalItems}
                     pagesSize={pagesSize}
-                    isFollowingProgress={props.isFollowingProgress}
-                    unfollowUserThunkCreator={props.unfollowUserThunkCreator}
-                    followUsersThunkCreator={props.followUsersThunkCreator}
                     onFilterChanged={onFilterChanged}
                 />
             </>
         )
 }
 
-type propsType = mapDispatchToPropsType & mapStateToPropsType & ownPropsType
+type propsType = ownPropsType
 
 type ownPropsType = {
     pageNumber: number
-    onPageChanged: (pageNumber: number, term: string) => void
+    onPageChanged: (pageNumber: number) => void
     onFilterChanged: (term: string, isFriend: boolean) => void
 }
 
-type mapDispatchToPropsType = {
-    unfollowUserThunkCreator: (userId: number) => void
-    followUsersThunkCreator: (userId: number) => void
-}
 
-type mapStateToPropsType = {
-    users: Array<usersType>
-    totalItems: number
-    isFetching: boolean
-    isFollowingProgress: Array<number>
-    isAuth: boolean
-}
-
-let mapStateToProps = (state: any): mapStateToPropsType => {
-    return {
-        users: getUsers(state),
-        totalItems: getTotalUsersCount(state),
-        isFetching: requestIsFetching(state),
-        isFollowingProgress: requestIsFollowingProgress(state),
-        isAuth: requestIsAuth(state)
-    }
-}
 
 /*
 const loginUsersRedirect = (props) => {
@@ -94,10 +59,5 @@ const loginUsersRedirect = (props) => {
     })
     return <UsersContainer {...props} />
 }*/
-
-export default connect<mapStateToPropsType, mapDispatchToPropsType, appStateType>
-(mapStateToProps, {
-    unfollowUserThunkCreator, followUsersThunkCreator
-})(UsersContainer)
 
 
