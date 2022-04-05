@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import s from './Header.module.css'
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,6 +17,9 @@ export const Header: React.FC<headerType> = (props) => {
     const onLogOutUser = () => {
         dispatch(setLogOutUserThunkCreator)
     }
+    useEffect(() => {
+        onLogOutUser()
+    }, [])
 
     return (
         <header className={s.header}>

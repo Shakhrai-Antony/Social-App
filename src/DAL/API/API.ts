@@ -133,7 +133,7 @@ type ResponseType<D = {}> = {
 type logInUserType = {
     email: string
     password: string
-    rememberMe: boolean
+    rememberMe: boolean | number
     captcha: boolean
     resultCode: ResultCodesEnum
 }
@@ -149,7 +149,7 @@ type getCaptchaType = {
 }
 
 export const userValidationAPI = {
-    logInUser(email: string, password: string, rememberMe: boolean | string, captcha: string) {
+    logInUser(email: string, password: string, rememberMe: boolean | number, captcha: string) {
         return instance.post<logInUserType>(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
             return (
                 response.data

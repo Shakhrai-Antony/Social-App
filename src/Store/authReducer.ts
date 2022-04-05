@@ -53,7 +53,7 @@ export const setAuthUserDataThunkCreator = () => {
     }
 }
 
-export const setLogInUserThunkCreator = (email:string, password:string, rememberMe:boolean, captcha:string) => {
+export const setLogInUserThunkCreator = (email:string, password:string, rememberMe:boolean | number, captcha:string) => {
     return (dispatch: any) => {
         userValidationAPI.logInUser(email, password, rememberMe, captcha).then(data => {
             if (data.resultCode === 0) {
