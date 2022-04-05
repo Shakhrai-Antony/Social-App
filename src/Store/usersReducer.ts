@@ -66,7 +66,7 @@ const usersReducer = (state = initialState, action: usersReducerActionType): ini
         case 'SET_CURRENT_PAGE':
             return {
                 ...state,
-                currentPage: action.page
+                currentPage: action.page,
             }
         case 'SET_IS_FETCHING':
             return {

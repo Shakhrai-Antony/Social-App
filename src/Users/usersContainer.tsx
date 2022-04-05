@@ -19,34 +19,31 @@ import {
 import {usersType} from "../Store/dialogsReducer";
 import {appStateType} from "../Store/reduxStore";
 
-class UsersContainer extends React.Component<propsType> {
-    componentDidMount() {
-        this.props.setTotalUsersThunkCreator(this.props.currentPage, this.props.pagesSize)
-    }
+const UsersContainer:React.FC<propsType> = (props) => {
+    useEffect(() => {
+        props.setTotalUsersThunkCreator(props.currentPage, props.pagesSize)
+    }, [])
 
-    onPageChanged = (pageNumber: number) => {
-        this.props.setUsersThunkCreator(pageNumber, this.props.pagesSize, this.props.term, this.props.friend)
+    const onPageChanged = (pageNumber: number) => {
+        props.setUsersThunkCreator(pageNumber, props.pagesSize, props.term, props.friend)
     }
-    onFilterChanged = (term: string, isFriend: boolean) => {
-        this.props.setUsersThunkCreator(1, this.props.pagesSize, term, isFriend)
+    const onFilterChanged = (term: string, isFriend: boolean) => {
+        props.setUsersThunkCreator(1, props.pagesSize, term, isFriend)
     }
-
-    render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader/> : null}
+                {props.isFetching ? <Preloader/> : null}
                 <UsersProfile
-                    currentPage={this.props.currentPage} onPageChanged={this.onPageChanged}
-                    users={this.props.users} totalItems={this.props.totalItems}
-                    pagesSize={this.props.pagesSize}
-                    isFollowingProgress={this.props.isFollowingProgress}
-                    unfollowUserThunkCreator={this.props.unfollowUserThunkCreator}
-                    followUsersThunkCreator={this.props.followUsersThunkCreator}
-                    onFilterChanged={this.onFilterChanged}
+                    currentPage={props.currentPage} onPageChanged={onPageChanged}
+                    users={props.users} totalItems={props.totalItems}
+                    pagesSize={props.pagesSize}
+                    isFollowingProgress={props.isFollowingProgress}
+                    unfollowUserThunkCreator={props.unfollowUserThunkCreator}
+                    followUsersThunkCreator={props.followUsersThunkCreator}
+                    onFilterChanged={onFilterChanged}
                 />
             </>
         )
-    }
 }
 
 type propsType = mapDispatchToPropsType & mapStateToPropsType & ownPropsType
@@ -62,7 +59,6 @@ type mapDispatchToPropsType = {
     setUsersThunkCreator: (pageNumber: number, pageSize: number, term: string, isFriend:boolean) => void
     unfollowUserThunkCreator: (userId: number) => void
     followUsersThunkCreator: (userId: number) => void
-
 }
 
 type mapStateToPropsType = {
