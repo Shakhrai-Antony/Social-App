@@ -1,12 +1,8 @@
 import React from "react";
 import Paginator from "./Paginator";
 import Users from "./Users";
-import {usersType} from "../Store/dialogsReducer";
-import UsersForm from "./UsersForm";
 import {useSelector} from "react-redux";
 import {getTotalUsersCount, getUsers, requestIsFollowingProgress} from "../Store/usersSelectors";
-import {usersReducerStateType} from "../Store/usersReducer";
-
 
 type usersProfileType = {
     currentPage: number
@@ -31,6 +27,5 @@ const UsersProfile: React.FC<usersProfileType> = (props) => {
         }
     </div>
 }
-
 
 export default UsersProfile

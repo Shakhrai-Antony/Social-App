@@ -1,34 +1,37 @@
-import React from "react";
-// @ts-ignore
+import React, {useEffect} from "react";
 import s from './Dialogs.module.css'
 import FriendsList from "./FriendsList/FriendsList";
 import MessagesList from "./MessagesList/MessagesList";
-import {dialogsType, usersType} from "../Store/dialogsReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {getDialogs, getNewDialogsMessage, getUsers, isUserAuth} from "../Store/dialogsSelectors";
+import {dialogsReducerActions} from "../Store/dialogsReducer";
+import {useNavigate} from "react-router-dom";
 
 type dialogsStateType = {
-    users: Array<usersType>
-    dialogs: Array<dialogsType>
-    newDialogMessage: string
-    changeNewMessage: (text: string) => void
-    newDialog: () => void
+    onChangeNewMessage: (text: string) => void
+    addNewDialog: () => void
 }
 
-const Dialogs: React.FC<dialogsStateType> = (props) => {
+export const Dialogs: React.FC<dialogsStateType> = (props) => {
 
-    const usersList = props.users.map(u =>
+    const users = useSelector(getUsers)
+    const dialogs = useSelector(getDialogs)
+    const newDialogMessage = useSelector(getNewDialogsMessage)
+    const dispatch = useDispatch()
+
+    const usersList = users.map(u =>
         <FriendsList key={u.id} id={u.id} name={u.name}/>
     )
 
-    const messagesList = props.dialogs.map(m =>
-        <MessagesList key={m.id} message={m.message} id={m.id}/>
-    )
+    const messagesList = dialogs.map(m =>
+        <MessagesList key={m.id} message={m.message} id={m.id}/>)
 
     const onChangeNewMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewMessage(e.currentTarget.value)
+        dispatch(dialogsReducerActions.updateNewDialogActionCreator(e.currentTarget.value))
     }
 
     const addNewDialog = () => {
-        props.newDialog()
+        dispatch(dialogsReducerActions.addNewDialogActionCreator())
     }
 
     return (
@@ -41,7 +44,7 @@ const Dialogs: React.FC<dialogsStateType> = (props) => {
             </div>
 
             <div>
-                <textarea value={props.newDialogMessage} onChange={onChangeNewMessage}/>
+                <textarea value={newDialogMessage} onChange={onChangeNewMessage}/>
                 <span>
                     <button onClick={addNewDialog}>add smth</button>
                 </span>
@@ -50,4 +53,14 @@ const Dialogs: React.FC<dialogsStateType> = (props) => {
     )
 }
 
-export default Dialogs
+export const LoginDialogsRedirect = (props:any) => {
+    const isAuth = useSelector(isUserAuth)
+    let navigate = useNavigate()
+    useEffect(() => {
+        if (!isAuth) {
+            return navigate('/Login')
+        }
+    })
+    return <Dialogs {...props} />
+}
+

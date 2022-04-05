@@ -3,7 +3,6 @@ import React, {useEffect} from 'react'
 import Sidebar from "./Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
-import DialogsContainer from "./Dialogs/dialogsContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
 import {LoginContainer} from "./Login/Login";
@@ -11,6 +10,7 @@ import {connect} from "react-redux";
 import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
 import {UsersContainer} from "./Users/usersContainer";
+import {LoginDialogsRedirect} from "./Dialogs/Dialogs";
 
 
 const App = (props) => {
@@ -28,7 +28,7 @@ const App = (props) => {
                         <Routes>
                             <Route path='Profile' element={<ProfileContainer/>}/>
                             <Route path='Profile/:userId' element={<ProfileContainer/>}/>
-                            <Route path='/Dialogs/*' element={<DialogsContainer/>}/>
+                            <Route path='/Dialogs/*' element={<LoginDialogsRedirect/>}/>
                             <Route path='/Users' element={<UsersContainer/>}/>
                             <Route path='/login' element={<LoginContainer/>}/>
                         </Routes>

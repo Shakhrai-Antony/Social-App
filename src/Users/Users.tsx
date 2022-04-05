@@ -4,21 +4,19 @@ import s from "./users.module.css";
 import userPhoto from "../assets/images/user.png";
 import {useDispatch} from "react-redux";
 import {followUsersThunkCreator, unfollowUsersThunkCreator, usersReducerStateType} from "../Store/usersReducer";
-import {usersType} from "../Store/dialogsReducer";
 
 type userType = {
     isFollowingProgress: Array<number>
     u: usersReducerStateType
 }
 
-
 const Users: React.FC<userType> = (props) => {
     const dispatch = useDispatch()
 
-    const unfollowUser = (userId:number) => {
+    const unfollowUser = (userId: number) => {
         dispatch(unfollowUsersThunkCreator(userId))
     }
-    const followUser = (usersId:number) => {
+    const followUser = (usersId: number) => {
         dispatch(followUsersThunkCreator(usersId))
     }
 
