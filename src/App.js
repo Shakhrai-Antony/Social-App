@@ -4,13 +4,13 @@ import Sidebar from "./Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
 import DialogsContainer from "./Dialogs/dialogsContainer";
-import UsersContainer from "./Users/usersContainer";
 import ProfileContainer from "./Profile/ProfileContainer";
 import HeaderContainer from "./Header/HeaderContainer";
 import {LoginContainer} from "./Login/Login";
 import {connect} from "react-redux";
 import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
+import {UsersContainer} from "./Users/usersContainer";
 
 
 const App = (props) => {

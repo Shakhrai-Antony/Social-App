@@ -55,7 +55,6 @@ export const getUsersAPI = {
         })
     },
     setUsersAPI(pageNumber: number, pagesSize: number, term: string, isFriend: boolean) {
-        console.log(isFriend)
         return instance.get<getUsersAPIType>((`users?page=${pageNumber}&count=${pagesSize}&term=${term}`
             + (isFriend === null ? '' : `&friend=${isFriend}`)))
             .then(response => {

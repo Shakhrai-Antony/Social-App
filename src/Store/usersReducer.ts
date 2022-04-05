@@ -14,6 +14,7 @@ export type usersReducerStateType = {
     status: string
     followed: boolean
     totalItems: number
+    key?: number
 }
 
 let initialState = {
@@ -24,7 +25,7 @@ let initialState = {
     isFetching: false,
     isFollowingProgress: [] as Array<number>,
     term: '' as string,
-    friend: null as null | boolean
+    friend: false
 }
 
 export type initialStateType = typeof initialState
@@ -153,7 +154,7 @@ export const setTotalUsersThunkCreator = (currentPage: number, pagesSize: number
     }
 }
 
-export const unfollowUserThunkCreator = (userId: number): usersReducerThunkType => {
+export const unfollowUsersThunkCreator = (userId: number): usersReducerThunkType => {
     return (dispatch: usersReducerDispatchType) => {
         dispatch(usersReducerActions.isFollowingInProgress(true, userId))
         getUsersAPI.unfollowUserAPI(userId).then(data => {

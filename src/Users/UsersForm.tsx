@@ -7,7 +7,7 @@ const UsersForm = React.memo((props: any) => {
     const formik = useFormik({
         initialValues: {
             term: '',
-            friendStatus: null,
+            friendStatus: false,
         },
         onSubmit: (values) => {
             props.onFilterChanged(values.term, values.friendStatus)
@@ -18,7 +18,7 @@ const UsersForm = React.memo((props: any) => {
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.usersForm}>
                     <Field as="select" name="friendStatus" value={formik.values.friendStatus}>
-                        <option value="null">All</option>
+                        <option value="undefined">All</option>
                         <option value="false">Unfollowed</option>
                         <option value="true">Followed</option>
                     </Field>
