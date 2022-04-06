@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import Sidebar from "./Sidebar/Sidebar";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
 import {UsersContainer} from "./Users/usersContainer";
@@ -11,13 +11,18 @@ import {LoginDialogsRedirect} from "./Dialogs/Dialogs";
 import {Header} from "./Header/Header";
 import {LoginRedirect} from "./Login/Login";
 import {ProfileURLMatch} from "./Profile/ProfileContainer";
+import {setInitializedApp} from "./Store/app.Selectors";
 
 
-const App = (props) => {
+export const App = (props) => {
+
+    const dispatch = useDispatch()
+    const initialized = useSelector(setInitializedApp)
+
     useEffect(() => {
-        props.initializedSuccess()
+        dispatch(initializedSuccess())
     })
-    if (!props.initialized) {
+    if (!initialized) {
         return <Preloader/>
     }
     return (
@@ -38,16 +43,3 @@ const App = (props) => {
         </BrowserRouter>
     )
 }
-
-let mapStateToProps = (state) => {
-    return {
-        initialized: state.app.initialized
-    }
-}
-
-export default connect(mapStateToProps, {initializedSuccess})(App)
-
-
-
-
-

@@ -1,9 +1,7 @@
 import {setAuthUserDataThunkCreator} from "./authReducer";
-import {ThunkAction} from "redux-thunk";
-import {appStateType, InferActionsTypes} from "./reduxStore";
-import {Dispatch} from "redux";
+import {InferActionsTypes} from "./reduxStore";
 
-let initialState: object = {
+let initialState = {
     initialized: false as boolean
 }
 
@@ -27,9 +25,7 @@ export const actions = {
     }
 }
 
-let b = 'privet'
 type appReducerActionType = InferActionsTypes<typeof actions>
-
 
 export const initializedSuccess = () => {
     return (dispatch: any) => {
