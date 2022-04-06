@@ -65,7 +65,6 @@ export const setLogInUserThunkCreator = (email:string, password:string, remember
 export const setLogOutUserThunkCreator = () => {
     return (dispatch:any) => {
         userValidationAPI.logOutUser().then(data => {
-            console.log(data)
             if (data.resultCode === 0) {
                 dispatch(authReducerActions.setAuthUserData(null, null, null, false))
             }

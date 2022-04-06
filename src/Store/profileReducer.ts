@@ -33,7 +33,7 @@ let initialState = {
     ] as Array<messagesType>,
     newMessage: '' as string,
     profile: null as profileType | null,
-    status: '' as string | null
+    status: '' as string
 }
 
 export type initialStateType = typeof initialState
@@ -86,7 +86,7 @@ export const profileReducerActions = {
     setNewProfile: (newProfile: profileType) => {
         return ({type: 'SET_NEW_PROFILE', newProfile} as const)
     },
-    getNewStatus: (newStatus: string | null) => {
+    getNewStatus: (newStatus: string) => {
         return ({type: 'GET_NEW_STATUS', newStatus} as const)
     },
     updateNewPhoto: (photos: profileType) => {
@@ -111,7 +111,7 @@ export const getNewStatusThunkCreator = (userId: number): profileReducerThunkTyp
         })
     }
 }
-export const setNewStatusThunkCreator = (status: string): profileReducerThunkType => {
+export const setNewStatusThunkCreator = (status: string ): profileReducerThunkType => {
     return (dispatch: profileReducerDispatchType) => {
         getUsersProfileAPI.setNewStatusProfileAPI(status).then(data => {
             if (data.resultCode === 0) {

@@ -1,28 +1,17 @@
 import React from "react";
 import s from './Profile.module.css'
 import MyPostsContainer from "./MyPosts/myPostsContainer";
-import {profileType} from "../Store/profileReducer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-
-type profileTypes = {
-    profile: profileType
-    status: string
-    isOwner:boolean
-    setNewStatusThunkCreator: (status: string) => void
-    setNewPhotoThunkCreator: (photo: File) => void
+type profileType = {
+    isOwner: boolean
 }
 
-const Profile = (props: any) => {
-
+const Profile: React.FC<profileType> = (props: any) => {
     return (
         <div className={s.profile}>
-            <ProfileInfo profile={props.profile} status={props.status}
-                         setNewStatusThunkCreator={props.setNewStatusThunkCreator}
-                         isOwner={props.isOwner}
-                         setNewPhotoThunkCreator={props.setNewPhotoThunkCreator}/>
+            <ProfileInfo isOwner={props.isOwner} />
             <MyPostsContainer/>
-
         </div>
     )
 }

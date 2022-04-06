@@ -1,19 +1,19 @@
 import React  from "react";
 import {useEffect, useState} from "react"
+import {useDispatch, useSelector} from "react-redux";
+import {setNewStatusThunkCreator} from "../../Store/profileReducer";
+import {getStatus} from "../../Store/profileSelectors";
 
-type profileStatusHType = {
-    status: string
-    setNewStatusThunkCreator: (status: string) => void
-}
+export const ProfileStatusH: React.FC = (props) => {
 
-export const ProfileStatusH: React.FC<profileStatusHType> = (props) => {
-
+    const dispatch = useDispatch()
+    const userStatus = useSelector(getStatus)
     const [editMode, setEditMode] = useState(true)
-    const [status, setStatus] = useState(props.status)
+    const [status, setStatus] = useState(userStatus)
 
     useEffect(() => {
-        setStatus(props.status)
-    }, [props.status])
+        setStatus(userStatus)
+    }, [userStatus])
 
     const activateEditMode = () => {
         setEditMode(false)
@@ -21,18 +21,17 @@ export const ProfileStatusH: React.FC<profileStatusHType> = (props) => {
 
     const deactivateEditMode = () => {
         setEditMode(true)
-        props.setNewStatusThunkCreator(status)
+        dispatch(setNewStatusThunkCreator(status))
     }
 
     const onChangeStatus = (text: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(text.currentTarget.value)
     }
-
         return (
             <div>
                 {editMode
                     ? <div>
-                            <span onDoubleClick={activateEditMode}> {props.status} </span>
+                            <span onDoubleClick={activateEditMode}> {userStatus} </span>
                     </div>
                     : <div>
                         <input onChange={onChangeStatus} onBlur={deactivateEditMode} autoFocus={true} value={status}/>

@@ -15,7 +15,6 @@ export const Header:React.FC = (props) => {
         dispatch(setLogOutUserThunkCreator())
     }
     useEffect(() => {
-        setLogOutUserThunkCreator()
     }, [isAuth])
 
     return (
