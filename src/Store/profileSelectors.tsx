@@ -11,3 +11,11 @@ export const getStatus = (state: appStateType) => {
 export const getUserId = (state: appStateType) => {
     return state.auth.id
 }
+
+export const getMessages = (state: appStateType) => {
+    return state.profilePage.messages
+}
+
+export const getNewMessage = (state: appStateType) => {
+    return state.profilePage.newMessage
+}
