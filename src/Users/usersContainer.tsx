@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
     setTotalUsersThunkCreator,
     setUsersThunkCreator
@@ -10,7 +10,7 @@ import {
     getCurrentPage, getPagesSize, requestIsFetching, setIsFriend, setUsersFilter
 } from "../Store/usersSelectors";
 
-export const UsersContainer:React.FC<propsType> = (props) => {
+export const UsersContainer:React.FC<propsType> = (props:any) => {
     const dispatch = useDispatch()
     const currentPage = useSelector(getCurrentPage)
     const pagesSize = useSelector(getPagesSize)

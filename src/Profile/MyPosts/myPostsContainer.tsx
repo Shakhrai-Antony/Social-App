@@ -5,7 +5,6 @@ import {
 } from "../../Store/profileReducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {appStateType} from "../../Store/reduxStore";
 
 const MyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => {
     return (

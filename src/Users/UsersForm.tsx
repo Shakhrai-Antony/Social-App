@@ -1,6 +1,12 @@
 import React from "react";
-import {Field, FormikProvider, useFormik} from "formik";
+import {FormikProvider, useFormik} from "formik";
 import s from './usersForm.module.css'
+import {Button} from "antd";
+import Field from "formik-antd/lib/field";
+import { Select } from 'antd';
+import { Input } from "formik-antd";
+
+const { Option } = Select;
 
 const UsersForm = React.memo((props: any) => {
     const formik = useFormik({
@@ -16,17 +22,16 @@ const UsersForm = React.memo((props: any) => {
         <FormikProvider value={formik}>
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.usersForm}>
-                    <Field as="select" name="friendStatus" value={formik.values.friendStatus}>
-                        <option value="undefined">All</option>
-                        <option value="false">Unfollowed</option>
-                        <option value="true">Followed</option>
-                    </Field>
-                    <input type='term' name='term' value={formik.values.term} onChange={formik.handleChange}/>
-                    <button type='submit'>find</button>
+                    <Select value={formik.values.friendStatus} style={{ width: 120 }}>
+                        <Option value="undefined">All</Option>
+                        <Option value="false">Unfollowed</Option>
+                        <Option value="true" >Followed</Option>
+                    </Select>
+                    <Input  style={{ width: 140 }} type='term' name='term' value={formik.values.term} onChange={formik.handleChange}/>
+                    <Button htmlType="submit">Find</Button>
                 </div>
             </form>
         </FormikProvider>
-
     )
 }
 )

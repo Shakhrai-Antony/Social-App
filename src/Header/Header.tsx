@@ -5,9 +5,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginSelector} from "../Store/loginSelectors";
 import {requestIsAuth} from "../Store/usersSelectors";
 import {setLogOutUserThunkCreator} from "../Store/authReducer";
+import {Col, Row} from "antd";
+import { Button} from 'antd'
 
+export const HeaderComponent:React.FC = (props) => {
 
-export const Header:React.FC = (props) => {
     const login = useSelector(loginSelector)
     const isAuth = useSelector(requestIsAuth)
     const dispatch = useDispatch()
@@ -18,14 +20,24 @@ export const Header:React.FC = (props) => {
     }, [isAuth])
 
     return (
-        <header className={s.header}>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Twitter_Logo.png"/>
-            <div className={s.loginBlock}>
-                {   isAuth
-                    ? <div>{login} - <button onClick={onLogOutUser}>Log out</button></div>
-                    : <NavLink to='/login'>Login</NavLink>
-                }
-            </div>
-        </header>
+        <Row  >
+            <Col span={24}>
+                <header className={s.header}>
+                    <Col span={24}>
+                        <div className={s.loginBlock}>
+                            {   isAuth
+                                ? <div className={s.login}>
+                                    {login} - <Button onClick={onLogOutUser}>Log out</Button>
+                                </div>
+                                : <NavLink to='/login'>Login</NavLink>
+                            }
+                        </div>
+                    </Col>
+
+                </header>
+            </Col>
+
+        </Row>
+
     )
 }

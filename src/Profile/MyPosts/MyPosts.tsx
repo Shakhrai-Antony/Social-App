@@ -1,6 +1,8 @@
 import React from "react";
 import Post from "../Post/Post";
 import {messagesType} from "../../Store/profileReducer";
+import TextArea from "antd/lib/input/TextArea";
+import { Button } from "antd";
 
 type MyPostsType = {
     newMessage: string
@@ -26,10 +28,10 @@ const MyPosts: React.FC<MyPostsType> = (props) => {
     return (
         <div>
             <div>
-                <textarea onChange={onChangePost} value={props.newMessage}/>
+                <TextArea showCount maxLength={100} style={{ height: 80, width: 200 }} onChange={onChangePost} value={props.newMessage}/>
             </div>
             <div>
-                <button onClick={addNewPost}>Add Posts</button>
+                <Button onClick={addNewPost}>Add Posts</Button>
             </div>
             {messagesList}
         </div>

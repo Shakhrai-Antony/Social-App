@@ -1,6 +1,4 @@
 .sidebar {
-    grid-area: s;
-    background-color: white;
     padding: 20px;
 }
 .link {

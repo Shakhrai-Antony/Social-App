@@ -7,6 +7,8 @@ import {getDialogs, getNewDialogsMessage, getUsers} from "../Store/dialogsSelect
 import {dialogsReducerActions} from "../Store/dialogsReducer";
 import {useNavigate} from "react-router-dom";
 import {requestIsAuth} from "../Store/usersSelectors";
+import { Button, Input } from "antd";
+import TextArea from "antd/lib/input/TextArea";
 
 type dialogsStateType = {
     onChangeNewMessage: (text: string) => void
@@ -45,10 +47,10 @@ export const Dialogs: React.FC<dialogsStateType> = (props) => {
             </div>
 
             <div>
-                <textarea value={newDialogMessage} onChange={onChangeNewMessage}/>
-                <span>
-                    <button onClick={addNewDialog}>add smth</button>
-                </span>
+                <TextArea showCount maxLength={100} style={{ height: 80, width: 200 }} value={newDialogMessage} onChange={onChangeNewMessage} />
+                <div>
+                    <Button onClick={addNewDialog}>send message</Button>
+                </div>
             </div>
         </div>
     )

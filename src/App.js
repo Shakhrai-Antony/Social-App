@@ -1,18 +1,21 @@
 import s from './App.module.css'
 import React, {useEffect} from 'react'
 import Sidebar from "./Sidebar/Sidebar";
-import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {initializedSuccess} from "./Store/appReducer";
 import Preloader from "./common/preloader/Peloader";
 import {UsersContainer} from "./Users/usersContainer";
 import {LoginDialogsRedirect} from "./Dialogs/Dialogs";
-import {Header} from "./Header/Header";
+import {HeaderComponent} from "./Header/Header";
 import {LoginRedirect} from "./Login/Login";
 import {ProfileURLMatch} from "./Profile/ProfileContainer";
 import {setInitializedApp} from "./Store/app.Selectors";
+import 'antd/dist/antd.css'
+import {Layout, Menu} from 'antd';
 
+
+const {Header, Content, Footer, Sider} = Layout;
 
 export const App = (props) => {
 
@@ -26,20 +29,64 @@ export const App = (props) => {
         return <Preloader/>
     }
     return (
-        <BrowserRouter>
-            <div className={s.appWrapper}>
-                <Header/>
-                <Sidebar/>
-                <div className={s.appWrapperContent}>
-                    <Routes>
-                        <Route path='profile' element={<ProfileURLMatch/>}/>
-                        <Route path='profile/:userId' element={<ProfileURLMatch/>}/>
-                        <Route path='/dialogs/*' element={<LoginDialogsRedirect/>}/>
-                        <Route path='/users' element={<UsersContainer/>}/>
-                        <Route path='/login' element={<LoginRedirect/>}/>
-                    </Routes>
-                </div>
-            </div>
-        </BrowserRouter>
+            <Layout>
+                <Sider
+                    breakpoint="lg"
+                    collapsedWidth="0"
+                    onBreakpoint={broken => {
+                        console.log(broken);
+                    }}
+                    onCollapse={(collapsed, type) => {
+                        console.log(collapsed, type);
+                    }}
+                >
+                    <Menu theme="dark" mode="inline" >
+                        <Sidebar/>
+                    </Menu>
+                </Sider>
+                <Layout>
+                    <Header className="site-layout-sub-header-background" style={{padding: 0}}>
+                        <HeaderComponent/>
+                    </Header>
+                    <Content className={s.appWrapper} style={{margin: '24px 16px 0'}}>
+                        <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                            <Routes>
+                                <Route path='profile' element={<ProfileURLMatch/>}/>
+                                <Route path='profile/:userId' element={<ProfileURLMatch/>}/>
+                                <Route path='/dialogs' element={<LoginDialogsRedirect/>}/>
+                                <Route path='/users' element={<UsersContainer/>}/>
+                                <Route path='/login' element={<LoginRedirect/>}/>
+                            </Routes>
+                        </div>
+                    </Content>
+                </Layout>
+            </Layout>
     )
+
+    /*  const dispatch = useDispatch()
+      const initialized = useSelector(setInitializedApp)
+
+      useEffect(() => {
+          dispatch(initializedSuccess())
+      })
+      if (!initialized) {
+          return <Preloader/>
+      }
+      return (
+          <BrowserRouter>
+              <div className={s.appWrapper}>
+                  <HeaderComponent/>
+                  <Sidebar/>
+                  <div className={s.appWrapperContent}>
+                      <Routes>
+                          <Route path='profile' element={<ProfileURLMatch/>}/>
+                          <Route path='profile/:userId' element={<ProfileURLMatch/>}/>
+                          <Route path='/dialogs/!*' element={<LoginDialogsRedirect/>}/>
+                          <Route path='/users' element={<UsersContainer/>}/>
+                          <Route path='/login' element={<LoginRedirect/>}/>
+                      </Routes>
+                  </div>
+              </div>
+          </BrowserRouter>
+      )*/
 }
