@@ -1,4 +1,3 @@
-import s from './App.module.css'
 import React, {useEffect} from 'react'
 import Sidebar from "./Sidebar/Sidebar";
 import {Route, Routes} from "react-router-dom";

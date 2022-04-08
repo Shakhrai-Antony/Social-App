@@ -10,12 +10,12 @@ import {requestIsAuth} from "../Store/usersSelectors";
 import { Button, Input } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 
-type dialogsStateType = {
+type DialogsStateType = {
     onChangeNewMessage: (text: string) => void
     addNewDialog: () => void
 }
 
-export const Dialogs: React.FC<dialogsStateType> = (props) => {
+export const Dialogs: React.FC<DialogsStateType> = (props) => {
 
     const users = useSelector(getUsers)
     const dialogs = useSelector(getDialogs)
@@ -26,7 +26,7 @@ export const Dialogs: React.FC<dialogsStateType> = (props) => {
         <FriendsList key={u.id} id={u.id} name={u.name}/>
     )
 
-    const messagesList = dialogs.map(m =>
+    const MessagesList = dialogs.map(m =>
         <MessagesList key={m.id} message={m.message} id={m.id}/>)
 
     const onChangeNewMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,7 +44,7 @@ export const Dialogs: React.FC<dialogsStateType> = (props) => {
                     {usersList}
                 </div>
                 <div className={s.messagesItem}>
-                    {messagesList}
+                    {MessagesList}
                 </div>
             </div>
 

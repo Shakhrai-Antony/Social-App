@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "../Post/Post";
-import {messagesType, profileReducerActions} from "../../Store/profileReducer";
+import {MessagesType, profileReducerActions} from "../../Store/profileReducer";
 import TextArea from "antd/lib/input/TextArea";
 import { Button } from "antd";
 import {useDispatch, useSelector} from "react-redux";
@@ -18,7 +18,7 @@ export const MyPosts: React.FC = (props) => {
     const addNewPost = () => {
         dispatch(profileReducerActions.addPostActionCreator())
     }
-    const messagesList = messages.map((message) =>
+    const MessagesList = messages.map((message) =>
         <Post key={message.id} id={message.id} message={message.message} likesCount={message.likesCount}/>
     )
 
@@ -30,7 +30,7 @@ export const MyPosts: React.FC = (props) => {
             <div>
                 <Button onClick={addNewPost}>Add Posts</Button>
             </div>
-            {messagesList}
+            {MessagesList}
         </div>
     )
 }

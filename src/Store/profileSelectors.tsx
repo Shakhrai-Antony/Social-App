@@ -1,21 +1,21 @@
-import {appStateType} from "./reduxStore";
+import {AppStateType} from "./reduxStore";
 
-export const getProfile = (state: appStateType) => {
+export const getProfile = (state: AppStateType) => {
     return state.profilePage.profile
 }
 
-export const getStatus = (state: appStateType) => {
+export const getStatus = (state: AppStateType) => {
     return state.profilePage.status
 }
 
-export const getUserId = (state: appStateType) => {
+export const getUserId = (state: AppStateType) => {
     return state.auth.id
 }
 
-export const getMessages = (state: appStateType) => {
+export const getMessages = (state: AppStateType) => {
     return state.profilePage.messages
 }
 
-export const getNewMessage = (state: appStateType) => {
+export const getNewMessage = (state: AppStateType) => {
     return state.profilePage.newMessage
 }

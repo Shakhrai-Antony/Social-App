@@ -3,14 +3,14 @@ import {NavLink} from "react-router-dom";
 import s from "./users.module.css";
 import userPhoto from "../assets/images/user.png";
 import {useDispatch} from "react-redux";
-import {followUsersThunkCreator, unfollowUsersThunkCreator, usersReducerStateType} from "../Store/usersReducer";
+import {followUsersThunkCreator, unfollowUsersThunkCreator, UsersReducerStateType} from "../Store/usersReducer";
 
-type userType = {
+type UserType = {
     isFollowingProgress: Array<number>
-    u: usersReducerStateType
+    u: UsersReducerStateType
 }
 
-const Users: React.FC<userType> = (props) => {
+const Users: React.FC<UserType> = (props) => {
     const dispatch = useDispatch()
 
     const unfollowUser = (userId: number) => {

@@ -1,6 +1,6 @@
 import {InferActionsTypes} from "./reduxStore";
 
-export type usersType = {
+export type UsersType = {
     id: number,
     name: string
     key: number
@@ -9,7 +9,7 @@ export type usersType = {
     status: string
 }
 
-export type dialogsType = {
+export type DialogsType = {
     id: number,
     message: string
     key?: number
@@ -20,17 +20,17 @@ let initialState = {
         {id: 1, name: 'Andrew'},
         {id: 2, name: 'Semen'},
         {id: 3, name: 'Antony'}
-    ] as Array<usersType>,
+    ] as Array<UsersType>,
     dialogs: [
         {id: 1, message: 'Hello'},
         {id: 2, message: 'How is your day?'}
-    ] as Array<dialogsType>,
+    ] as Array<DialogsType>,
     newDialogMessage: '' as string
 }
 
-export type initialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: dialogsReducerActionType): initialStateType => {
+const dialogsReducer = (state = initialState, action: DialogsReducerActionType): InitialStateType => {
 
     switch (action.type) {
         case 'UPDATE_NEW_DIALOG':
@@ -50,7 +50,7 @@ const dialogsReducer = (state = initialState, action: dialogsReducerActionType):
     }
 }
 
-export type dialogsReducerActionType = InferActionsTypes<typeof dialogsReducerActions>
+export type DialogsReducerActionType = InferActionsTypes<typeof dialogsReducerActions>
 
 export const dialogsReducerActions = {
     updateNewDialogActionCreator: (text: string) => {

@@ -1,37 +1,37 @@
-import {appStateType} from "./reduxStore";
+import {AppStateType} from "./reduxStore";
 
-export const getUsers = (state:appStateType) => {
+export const getUsers = (state:AppStateType) => {
     return state.usersPage.users
 }
 
-export const getTotalUsersCount = (state:appStateType) => {
+export const getTotalUsersCount = (state:AppStateType) => {
     return state.usersPage.totalItems
 }
 
-export const getPagesSize = (state:appStateType) => {
+export const getPagesSize = (state:AppStateType) => {
     return state.usersPage.pagesSize
 }
 
-export const getCurrentPage = (state:appStateType) => {
+export const getCurrentPage = (state:AppStateType) => {
     return state.usersPage.currentPage
 }
 
-export const requestIsFetching = (state:appStateType) => {
+export const requestIsFetching = (state:AppStateType) => {
     return state.usersPage.isFetching
 }
 
-export const requestIsFollowingProgress = (state:appStateType) => {
+export const requestIsFollowingProgress = (state:AppStateType) => {
     return state.usersPage.isFollowingProgress
 }
 
-export const requestIsAuth = (state:appStateType) => {
+export const requestIsAuth = (state:AppStateType) => {
     return state.auth.isAuth
 }
-export const setUsersFilter = (state:appStateType) => {
+export const setUsersFilter = (state:AppStateType) => {
     return state.usersPage.term
 }
 
-export const setIsFriend = (state:appStateType) => {
+export const setIsFriend = (state:AppStateType) => {
     return state.usersPage.friend
 }
 

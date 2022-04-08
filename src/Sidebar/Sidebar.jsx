@@ -7,7 +7,7 @@ import 'antd/dist/antd.css'
 const Sidebar = () => {
     return (
         <div className={s.sidebar}>
-            <Menu theme="dark" mode="inline">
+            <Menu className={s.menu} theme="dark" mode="inline">
                 <Menu.Item key="1">
                     <NavLink to ='/profile' className = { sidebarData => sidebarData.isActive ? s.activeLink : s.link }>Profile</NavLink>
                 </Menu.Item>

@@ -10,7 +10,7 @@ import {
     getCurrentPage, getPagesSize, requestIsFetching, setIsFriend, setUsersFilter
 } from "../Store/usersSelectors";
 
-export const UsersContainer:React.FC<propsType> = (props:any) => {
+export const UsersContainer:React.FC<PropsType> = (props:any) => {
     const dispatch = useDispatch()
     const currentPage = useSelector(getCurrentPage)
     const pagesSize = useSelector(getPagesSize)
@@ -24,7 +24,7 @@ export const UsersContainer:React.FC<propsType> = (props:any) => {
     const onPageChanged = (pageNumber: number) => {
         dispatch(setUsersThunkCreator(pageNumber, pagesSize, term, friend))
     }
-    const onFilterChanged = (term: string, isFriend: boolean) => {
+    const onFilterChanged = (term: string, isFriend: string) => {
         dispatch(setUsersThunkCreator(1, pagesSize, term, isFriend))
     }
         return (
@@ -39,9 +39,9 @@ export const UsersContainer:React.FC<propsType> = (props:any) => {
         )
 }
 
-type propsType = ownPropsType
+type PropsType = OwnPropsType
 
-type ownPropsType = {
+type OwnPropsType = {
     pageNumber: number
     onPageChanged: (pageNumber: number) => void
     onFilterChanged: (term: string, isFriend: boolean) => void

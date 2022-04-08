@@ -5,15 +5,15 @@ import UsersForm from "./UsersForm";
 
 
 
-type paginatorType = {
+type PaginatorType = {
     totalItems: number
     pagesSize: number
     currentPage: number
     onPageChanged: (p: number) => void
-    onFilterChanged:(filter: string, isFriend: boolean) => void
+    onFilterChanged:(filter: string, isFriend: string) => void
 }
 
-const Paginator:React.FC<paginatorType> = (props) => {
+const Paginator:React.FC<PaginatorType> = (props) => {
 
     let pagesCount = Math.ceil(props.totalItems / props.pagesSize)
     let pages = []

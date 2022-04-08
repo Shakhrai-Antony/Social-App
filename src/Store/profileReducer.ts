@@ -1,15 +1,15 @@
 import {getUsersProfileAPI} from "../DAL/API/API";
 import {ThunkAction} from "redux-thunk";
-import {appStateType, InferActionsTypes} from "./reduxStore";
+import {AppStateType, InferActionsTypes} from "./reduxStore";
 import {Dispatch} from "redux";
 
-export type messagesType = {
+export type MessagesType = {
     id: number
     message: string
     likesCount: number
 }
 
-export type profileType = {
+export type ProfileType = {
     userId?: number | null
     [photos: string]: any
     fullName?: string | null
@@ -30,15 +30,15 @@ let initialState = {
     messages: [
         {id: 1, message: 'Why nobody loves me?', likesCount: 1},
         {id: 2, message: 'Is anyone here?', likesCount: 1}
-    ] as Array<messagesType>,
+    ] as Array<MessagesType>,
     newMessage: '' as string,
-    profile: null as profileType | null,
+    profile: null as ProfileType | null,
     status: '' as string
 }
 
-export type initialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
-const profileReducer = (state = initialState, action: profileReducerActionType): initialStateType => {
+const profileReducer = (state = initialState, action: ProfileReducerActionType): InitialStateType => {
 
     switch (action.type) {
         case 'UPDATE_NEW_POST': {
@@ -74,7 +74,7 @@ const profileReducer = (state = initialState, action: profileReducerActionType):
     }
 }
 
-type profileReducerActionType = InferActionsTypes<typeof profileReducerActions>
+type ProfileReducerActionType = InferActionsTypes<typeof profileReducerActions>
 
 export const profileReducerActions = {
     updateNewPostActionCreator: (text: string) => {
@@ -83,36 +83,36 @@ export const profileReducerActions = {
     addPostActionCreator: () => {
         return ({type: 'ADD_POST'} as const)
     },
-    setNewProfile: (newProfile: profileType) => {
+    setNewProfile: (newProfile: ProfileType) => {
         return ({type: 'SET_NEW_PROFILE', newProfile} as const)
     },
     getNewStatus: (newStatus: string) => {
         return ({type: 'GET_NEW_STATUS', newStatus} as const)
     },
-    updateNewPhoto: (photos: profileType) => {
+    updateNewPhoto: (photos: ProfileType) => {
         return ({type: 'SET_NEW_PHOTO', photos} as const)
     }
 }
 
-type profileReducerThunkType = ThunkAction<void, appStateType, unknown, profileReducerActionType>
-export type profileReducerDispatchType = Dispatch<profileReducerActionType>
+type ProfileReducerThunkType = ThunkAction<void, AppStateType, unknown, ProfileReducerActionType>
+export type ProfileReducerDispatchType = Dispatch<ProfileReducerActionType>
 
-export const setUsersProfileThunkCreator = (userId: number): profileReducerThunkType => {
-    return (dispatch: profileReducerDispatchType) => {
+export const setUsersProfileThunkCreator = (userId: number): ProfileReducerThunkType => {
+    return (dispatch: ProfileReducerDispatchType) => {
         getUsersProfileAPI.setUsersProfileAPI(userId).then(data => {
             dispatch(profileReducerActions.setNewProfile(data))
         })
     }
 }
-export const getNewStatusThunkCreator = (userId: number): profileReducerThunkType => {
-    return (dispatch: profileReducerDispatchType) => {
+export const getNewStatusThunkCreator = (userId: number): ProfileReducerThunkType => {
+    return (dispatch: ProfileReducerDispatchType) => {
         getUsersProfileAPI.getNewStatusProfileAPI(userId).then(data => {
             dispatch(profileReducerActions.getNewStatus(data))
         })
     }
 }
-export const setNewStatusThunkCreator = (status: string ): profileReducerThunkType => {
-    return (dispatch: profileReducerDispatchType) => {
+export const setNewStatusThunkCreator = (status: string ): ProfileReducerThunkType => {
+    return (dispatch: ProfileReducerDispatchType) => {
         getUsersProfileAPI.setNewStatusProfileAPI(status).then(data => {
             if (data.resultCode === 0) {
                 dispatch(profileReducerActions.getNewStatus(status))
@@ -121,8 +121,8 @@ export const setNewStatusThunkCreator = (status: string ): profileReducerThunkTy
         })
     }
 }
-export const setNewPhotoThunkCreator = (photo: string): profileReducerThunkType => {
-    return (dispatch: profileReducerDispatchType) => {
+export const setNewPhotoThunkCreator = (photo: string): ProfileReducerThunkType => {
+    return (dispatch: ProfileReducerDispatchType) => {
         getUsersProfileAPI.setUserPhoto(photo).then(data => {
             if (data.resultCode === 0) {
                 dispatch(profileReducerActions.updateNewPhoto(data.data.photos))

@@ -1,10 +1,6 @@
 import {userValidationAPI} from "../DAL/API/API";
 import {InferActionsTypes} from "./reduxStore";
 
-interface IState {
-    email: string | null
-}
-
 let initialState = {
     email: null as string | null,
     id: null as number | null,
@@ -13,9 +9,9 @@ let initialState = {
     captcha: null as string | null
 }
 
-export type initialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
-const authReducer = (state = initialState, action: authReducerActionType): initialStateType => {
+const authReducer = (state = initialState, action: AuthReducerActionType): InitialStateType => {
     switch (action.type) {
         case 'SET_AUTH_DATA':
             return {
@@ -32,7 +28,7 @@ const authReducer = (state = initialState, action: authReducerActionType): initi
     }
 }
 
-type authReducerActionType = InferActionsTypes<typeof authReducerActions>
+type AuthReducerActionType = InferActionsTypes<typeof authReducerActions>
 
 export const authReducerActions = {
     setAuthUserData: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => {

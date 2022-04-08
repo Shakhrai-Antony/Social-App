@@ -1,8 +1,8 @@
 let initialState = {}
 
-export type initialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
-const sidebarReducer = (state = initialState, action: any): initialStateType => {
+const sidebarReducer = (state = initialState, action: any): InitialStateType => {
 
     return state;
 }

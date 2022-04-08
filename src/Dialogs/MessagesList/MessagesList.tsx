@@ -1,12 +1,12 @@
 import React from "react";
 import s from "../Dialogs.module.css";
 
-type messagesList = {
+type MessagesList = {
     message: string
     id?: number
 }
 
-const MessagesList: React.FC<messagesList> = (props) => {
+const MessagesList: React.FC<MessagesList> = (props) => {
     return (
         <div className={s.messagesItem}>
             {props.message}

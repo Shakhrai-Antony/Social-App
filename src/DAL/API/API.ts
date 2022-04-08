@@ -1,7 +1,6 @@
 import axios from "axios";
-import {usersType} from "../../Store/dialogsReducer";
-import {messagesType, profileType} from "../../Store/profileReducer";
-import {usersReducerStateType} from "../../Store/usersReducer";
+import {ProfileType} from "../../Store/profileReducer";
+
 
 export const instance = axios.create({
     withCredentials: true,
@@ -14,7 +13,7 @@ export enum ResultCodesEnum {
     Error = 1
 }
 
-type getUsersAPIType = {
+type GetUsersAPIType = {
     items: {
         name: string
         id: number
@@ -29,34 +28,34 @@ type getUsersAPIType = {
     term: string
     totalCount: number
     resultCode: ResultCodesEnum
-    isFriend: boolean
+    statusFriend: string
 }
 
 export const getUsersAPI = {
     unfollowUserAPI(userId: number) {
-       return instance.delete<getUsersAPIType>(`follow/${userId}`).then(response => {
+       return instance.delete<GetUsersAPIType>(`follow/${userId}`).then(response => {
             return (
                 response.data
             )
         })
     },
     followUserAPI(userId: number){
-        return instance.post<getUsersAPIType>(`follow/${userId}`).then(response => {
+        return instance.post<GetUsersAPIType>(`follow/${userId}`).then(response => {
             return (
                 response.data
             )
         })
     },
     setTotalUsersAPI(currentPage: number, pagesSize: number){
-        return instance.get<getUsersAPIType>(`users?page=${currentPage}&count=${pagesSize}`).then(response => {
+        return instance.get<GetUsersAPIType>(`users?page=${currentPage}&count=${pagesSize}`).then(response => {
             return (
                 response.data
             )
         })
     },
-    setUsersAPI(pageNumber: number, pagesSize: number, term: string, isFriend: boolean) {
-        return instance.get<getUsersAPIType>((`users?page=${pageNumber}&count=${pagesSize}&term=${term}`
-            + (isFriend === null ? '' : `&friend=${isFriend}`)))
+    setUsersAPI(pageNumber: number, pagesSize: number, term: string, statusFriend: string) {
+        return instance.get<GetUsersAPIType>((`users?page=${pageNumber}&count=${pagesSize}&term=${term}`
+            + (statusFriend === null ? '' : `&statusFriend=${statusFriend}`)))
             .then(response => {
             return (
                 response.data
@@ -65,18 +64,18 @@ export const getUsersAPI = {
     }
 }
 
-type getUsersProfileAPIType = {
+type GetUsersProfileAPIType = {
     resultCode: ResultCodesEnum
-    data: profileType
+    data: ProfileType
 }
 
-type setNewStatusProfileAPIType<D = {}> = {
+type SetNewStatusProfileAPIType<D = {}> = {
     resultCode: ResultCodesEnum
     messages: Array<string>
     data: D
 }
 
-type setUserPhotoType = {
+type SetUserPhotoType = {
     data: {
         photos: {
             small: string
@@ -89,7 +88,7 @@ type setUserPhotoType = {
 
 export const getUsersProfileAPI  = {
     setUsersProfileAPI (userId: number){
-        return instance.get<getUsersProfileAPIType>(`profile/${userId}`).then(response => {
+        return instance.get<GetUsersProfileAPIType>(`profile/${userId}`).then(response => {
             return (
                 response.data
             )
@@ -103,7 +102,7 @@ export const getUsersProfileAPI  = {
         })
     },
     setNewStatusProfileAPI (status: string) {
-       return instance.put<setNewStatusProfileAPIType>(`profile/status`, {status:status}).then(response => {
+       return instance.put<SetNewStatusProfileAPIType>(`profile/status`, {status:status}).then(response => {
             return (
                 response.data
             )
@@ -112,7 +111,7 @@ export const getUsersProfileAPI  = {
     setUserPhoto (photo: any) {
         let formData = new FormData();
         formData.append('image', photo)
-        return instance.put<setUserPhotoType>(`profile/photo`, formData, {
+        return instance.put<SetUserPhotoType>(`profile/photo`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -130,7 +129,7 @@ type ResponseType<D = {}> = {
     resultCode: ResultCodesEnum
 }
 
-type logInUserType = {
+type LogInUserType = {
     email: string
     password: string
     rememberMe: boolean | number
@@ -138,40 +137,40 @@ type logInUserType = {
     resultCode: ResultCodesEnum
 }
 
-type setAuthUserType = {
+type SetAuthUserType = {
         id: number
         email: string
         login: string
 }
 
-type getCaptchaType = {
+type GetCaptchaType = {
     url: string
 }
 
 export const userValidationAPI = {
     logInUser(email: string, password: string, rememberMe: boolean | number, captcha: string) {
-        return instance.post<logInUserType>(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
+        return instance.post<LogInUserType>(`auth/login`, {email, password, rememberMe, captcha}).then(response => {
             return (
                 response.data
             )
         })
     },
     logOutUser () {
-        return instance.delete<logInUserType>(`auth/login`).then(response => {
+        return instance.delete<LogInUserType>(`auth/login`).then(response => {
             return (
                 response.data
             )
         })
     },
     setAuthUser () {
-        return instance.get<ResponseType<setAuthUserType>>('auth/me', {withCredentials: true}).then(response => {
+        return instance.get<ResponseType<SetAuthUserType>>('auth/me', {withCredentials: true}).then(response => {
             return (
                 response.data
             )
         })
     },
     getCaptcha () {
-        return instance.get<getCaptchaType>(`security/get-captcha-url`).then(response => {
+        return instance.get<GetCaptchaType>(`security/get-captcha-url`).then(response => {
             return (
                 response.data
             )

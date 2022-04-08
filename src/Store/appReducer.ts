@@ -5,9 +5,9 @@ let initialState = {
     initialized: false as boolean
 }
 
-export type initialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
-const appReducer = (state = initialState, action: appReducerActionType): initialStateType => {
+const appReducer = (state = initialState, action: appReducerActionType): InitialStateType => {
     switch (action.type) {
         case 'SET_INITIALIZED':
             return {

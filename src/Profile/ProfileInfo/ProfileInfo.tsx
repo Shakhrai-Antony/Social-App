@@ -7,11 +7,11 @@ import ProfileStatusH from "./ProfileStatusH";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../Store/profileSelectors";
 
-type profileInfoType = {
+type ProfileInfoType = {
     isOwner: boolean
 }
 
-const ProfileInfo: React.FC<profileInfoType> = (props: any) => {
+const ProfileInfo: React.FC<ProfileInfoType> = (props: any) => {
     const dispatch = useDispatch()
     const userProfile = useSelector(getProfile)
 

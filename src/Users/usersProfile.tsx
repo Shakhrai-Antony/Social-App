@@ -4,14 +4,14 @@ import Users from "./Users";
 import {useSelector} from "react-redux";
 import {getTotalUsersCount, getUsers, requestIsFollowingProgress} from "../Store/usersSelectors";
 
-type usersProfileType = {
+type UsersProfileType = {
     currentPage: number
     onPageChanged: (pageNumber: number) => void
     pagesSize: number
-    onFilterChanged:(filter: string, isFriend: boolean) => void
+    onFilterChanged:(filter: string, isFriend: string) => void
 }
 
-const UsersProfile: React.FC<usersProfileType> = (props) => {
+const UsersProfile: React.FC<UsersProfileType> = (props) => {
     const users = useSelector(getUsers)
     const totalItems = useSelector(getTotalUsersCount)
     const isFollowingProgress = useSelector(requestIsFollowingProgress)

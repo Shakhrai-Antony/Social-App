@@ -1,9 +1,9 @@
 import {getUsersAPI, ResultCodesEnum} from "../DAL/API/API";
 import {ThunkAction} from "redux-thunk";
-import {appStateType, InferActionsTypes} from "./reduxStore";
+import {AppStateType, InferActionsTypes} from "./reduxStore";
 import {Dispatch} from "redux";
 
-export type usersReducerStateType = {
+export type UsersReducerStateType = {
     name: string
     id: number
     photos: {
@@ -17,19 +17,19 @@ export type usersReducerStateType = {
 }
 
 let initialState = {
-    users: [] as Array<usersReducerStateType>,
+    users: [] as Array<UsersReducerStateType>,
     totalItems: 0,
     pagesSize: 10,
     currentPage: 1,
     isFetching: false,
     isFollowingProgress: [] as Array<number>,
     term: '' as string,
-    friend: false
+    friend: ''
 }
 
-export type initialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
-const usersReducer = (state = initialState, action: usersReducerActionType): initialStateType => {
+const usersReducer = (state = initialState, action: UsersReducerActionType): InitialStateType => {
     switch (action.type) {
         case 'SET_USERS':
             return {
@@ -85,17 +85,17 @@ const usersReducer = (state = initialState, action: usersReducerActionType): ini
             return {
                 ...state,
                 term: action.term,
-                friend: action.isFriend
+                friend: action.statusFriend
             }
         default:
             return state
     }
 }
 
-type usersReducerActionType = InferActionsTypes<typeof usersReducerActions>
+type UsersReducerActionType = InferActionsTypes<typeof usersReducerActions>
 
 export const usersReducerActions = {
-    setUsers: (users: usersReducerStateType) => {
+    setUsers: (users: UsersReducerStateType) => {
         return ({type: 'SET_USERS', users} as const)
     },
     unfollow: (usersId :number) => {
@@ -120,29 +120,29 @@ export const usersReducerActions = {
     isFollowingInProgress: (fetching:boolean, usersId:number) => {
         return ({type: 'SET_IS_FOLLOWING', fetching, usersId} as const)
     },
-    setUsersByTerm: (term: string, isFriend: boolean) => {
-        return ({type: 'SET_USERS_TERM', term, isFriend} as const)
+    setUsersByTerm: (term: string, statusFriend: string) => {
+        return ({type: 'SET_USERS_TERM', term, statusFriend} as const)
     }
 }
 
 
-type usersReducerThunkType = ThunkAction<void, appStateType, unknown, usersReducerActionType>
-type usersReducerDispatchType = Dispatch<usersReducerActionType>
+type UsersReducerThunkType = ThunkAction<void, AppStateType, unknown, UsersReducerActionType>
+type UsersReducerDispatchType = Dispatch<UsersReducerActionType>
 
-export const setUsersThunkCreator = (pageNumber:number, pagesSize:number, term:string, isFriend:boolean): usersReducerThunkType => {
-    return (dispatch: usersReducerDispatchType) => {
+export const setUsersThunkCreator = (pageNumber:number, pagesSize:number, term:string, statusFriend:string): UsersReducerThunkType => {
+    return (dispatch: UsersReducerDispatchType) => {
         dispatch(usersReducerActions.setIsFetching(true))
         dispatch(usersReducerActions.setCurrentPage(pageNumber))
-        dispatch(usersReducerActions.setUsersByTerm(term, isFriend))
-        getUsersAPI.setUsersAPI(pageNumber, pagesSize, term, isFriend).then(data => {
+        dispatch(usersReducerActions.setUsersByTerm(term, statusFriend))
+        getUsersAPI.setUsersAPI(pageNumber, pagesSize, term, statusFriend).then(data => {
             dispatch(usersReducerActions.setIsFetching(false))
             dispatch(usersReducerActions.setUsers(data.items))
         })
     }
 }
 
-export const setTotalUsersThunkCreator = (currentPage: number, pagesSize: number): usersReducerThunkType => {
-    return (dispatch: usersReducerDispatchType) => {
+export const setTotalUsersThunkCreator = (currentPage: number, pagesSize: number): UsersReducerThunkType => {
+    return (dispatch: UsersReducerDispatchType) => {
         dispatch(usersReducerActions.setIsFetching(true))
         getUsersAPI.setTotalUsersAPI(currentPage, pagesSize).then(data => {
             dispatch(usersReducerActions.setIsFetching(false))
@@ -152,8 +152,8 @@ export const setTotalUsersThunkCreator = (currentPage: number, pagesSize: number
     }
 }
 
-export const unfollowUsersThunkCreator = (userId: number): usersReducerThunkType => {
-    return (dispatch: usersReducerDispatchType) => {
+export const unfollowUsersThunkCreator = (userId: number): UsersReducerThunkType => {
+    return (dispatch: UsersReducerDispatchType) => {
         dispatch(usersReducerActions.isFollowingInProgress(true, userId))
         getUsersAPI.unfollowUserAPI(userId).then(data => {
             if (data.resultCode === ResultCodesEnum.Success) {
@@ -164,8 +164,8 @@ export const unfollowUsersThunkCreator = (userId: number): usersReducerThunkType
     }
 }
 
-export const followUsersThunkCreator = (usersId: number): usersReducerThunkType => {
-    return (dispatch: usersReducerDispatchType) => {
+export const followUsersThunkCreator = (usersId: number): UsersReducerThunkType => {
+    return (dispatch: UsersReducerDispatchType) => {
         dispatch(usersReducerActions.isFollowingInProgress(true, usersId))
         getUsersAPI.followUserAPI(usersId).then(data => {
             if (data.resultCode === ResultCodesEnum.Success) {
