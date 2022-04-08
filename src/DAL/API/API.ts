@@ -55,7 +55,7 @@ export const getUsersAPI = {
     },
     setUsersAPI(pageNumber: number, pagesSize: number, term: string, statusFriend: string) {
         return instance.get<GetUsersAPIType>((`users?page=${pageNumber}&count=${pagesSize}&term=${term}`
-            + (statusFriend === null ? '' : `&statusFriend=${statusFriend}`)))
+            + (statusFriend === null ? '' : `&friend=${statusFriend}`)))
             .then(response => {
             return (
                 response.data

@@ -9,6 +9,9 @@ import Preloader from "../common/preloader/Peloader";
 import {
     getCurrentPage, getPagesSize, requestIsFetching, setIsFriend, setUsersFilter
 } from "../Store/usersSelectors";
+import s from "./usersStyle.module.css";
+
+
 
 export const UsersContainer:React.FC<PropsType> = (props:any) => {
     const dispatch = useDispatch()
@@ -28,14 +31,14 @@ export const UsersContainer:React.FC<PropsType> = (props:any) => {
         dispatch(setUsersThunkCreator(1, pagesSize, term, isFriend))
     }
         return (
-            <>
+            <div className={s.usersStyle}>
                 {isFetching ? <Preloader/> : null}
                 <UsersProfile
                     currentPage={currentPage} onPageChanged={onPageChanged}
                     pagesSize={pagesSize}
                     onFilterChanged={onFilterChanged}
                 />
-            </>
+            </div>
         )
 }
 
