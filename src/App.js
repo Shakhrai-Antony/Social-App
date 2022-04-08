@@ -12,16 +12,13 @@ import {LoginRedirect} from "./Login/Login";
 import {ProfileURLMatch} from "./Profile/ProfileContainer";
 import {setInitializedApp} from "./Store/app.Selectors";
 import 'antd/dist/antd.css'
-import {Layout, Menu} from 'antd';
+import {Layout} from 'antd';
 
-
-const {Header, Content, Footer, Sider} = Layout;
+const {Header, Content, Sider} = Layout;
 
 export const App = (props) => {
-
     const dispatch = useDispatch()
     const initialized = useSelector(setInitializedApp)
-
     useEffect(() => {
         dispatch(initializedSuccess())
     })
@@ -29,64 +26,29 @@ export const App = (props) => {
         return <Preloader/>
     }
     return (
+        <Layout>
+            <Sider
+                breakpoint="lg"
+                collapsedWidth="0"
+            >
+                <Sidebar/>
+            </Sider>
             <Layout>
-                <Sider
-                    breakpoint="lg"
-                    collapsedWidth="0"
-                    onBreakpoint={broken => {
-                        console.log(broken);
-                    }}
-                    onCollapse={(collapsed, type) => {
-                        console.log(collapsed, type);
-                    }}
-                >
-                    <Menu theme="dark" mode="inline" >
-                        <Sidebar/>
-                    </Menu>
-                </Sider>
-                <Layout>
-                    <Header className="site-layout-sub-header-background" style={{padding: 0}}>
-                        <HeaderComponent/>
-                    </Header>
-                    <Content className={s.appWrapper} style={{margin: '24px 16px 0'}}>
-                        <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
-                            <Routes>
-                                <Route path='profile' element={<ProfileURLMatch/>}/>
-                                <Route path='profile/:userId' element={<ProfileURLMatch/>}/>
-                                <Route path='/dialogs' element={<LoginDialogsRedirect/>}/>
-                                <Route path='/users' element={<UsersContainer/>}/>
-                                <Route path='/login' element={<LoginRedirect/>}/>
-                            </Routes>
-                        </div>
-                    </Content>
-                </Layout>
+                <Header className="site-layout-sub-header-background" style={{padding: 0}}>
+                    <HeaderComponent/>
+                </Header>
+                <Content style={{margin: '24px 16px 0'}}>
+                    <div className="site-layout-background" style={{padding: 24, minHeight: 360}}>
+                        <Routes>
+                            <Route path='profile' element={<ProfileURLMatch/>}/>
+                            <Route path='profile/:userId' element={<ProfileURLMatch/>}/>
+                            <Route path='/dialogs' element={<LoginDialogsRedirect/>}/>
+                            <Route path='/users' element={<UsersContainer/>}/>
+                            <Route path='/login' element={<LoginRedirect/>}/>
+                        </Routes>
+                    </div>
+                </Content>
             </Layout>
+        </Layout>
     )
-
-    /*  const dispatch = useDispatch()
-      const initialized = useSelector(setInitializedApp)
-
-      useEffect(() => {
-          dispatch(initializedSuccess())
-      })
-      if (!initialized) {
-          return <Preloader/>
-      }
-      return (
-          <BrowserRouter>
-              <div className={s.appWrapper}>
-                  <HeaderComponent/>
-                  <Sidebar/>
-                  <div className={s.appWrapperContent}>
-                      <Routes>
-                          <Route path='profile' element={<ProfileURLMatch/>}/>
-                          <Route path='profile/:userId' element={<ProfileURLMatch/>}/>
-                          <Route path='/dialogs/!*' element={<LoginDialogsRedirect/>}/>
-                          <Route path='/users' element={<UsersContainer/>}/>
-                          <Route path='/login' element={<LoginRedirect/>}/>
-                      </Routes>
-                  </div>
-              </div>
-          </BrowserRouter>
-      )*/
 }

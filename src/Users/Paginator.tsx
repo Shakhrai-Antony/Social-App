@@ -20,7 +20,6 @@ const Paginator:React.FC<paginatorType> = (props) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-
     let portionSize = 10
     let portions = Math.ceil(pagesCount / portionSize)
     let [portionNumber, setPortionNumber] = useState(1)
@@ -47,6 +46,5 @@ const Paginator:React.FC<paginatorType> = (props) => {
         </div>
     )
 }
-
 
 export default Paginator

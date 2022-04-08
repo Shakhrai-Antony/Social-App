@@ -1,7 +1,9 @@
 import {userValidationAPI} from "../DAL/API/API";
-import {ThunkAction} from "redux-thunk";
-import {appStateType, InferActionsTypes} from "./reduxStore";
-import {Dispatch} from "redux";
+import {InferActionsTypes} from "./reduxStore";
+
+interface IState {
+    email: string | null
+}
 
 let initialState = {
     email: null as string | null,

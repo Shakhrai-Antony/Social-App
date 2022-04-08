@@ -9,7 +9,7 @@ import {useMatch, useNavigate} from "react-router-dom";
 import {requestIsAuth} from "../Store/usersSelectors";
 import {getUserId} from "../Store/profileSelectors";
 
-const ProfileContainer: React.FC = (props: any) => {
+const ProfileContainer: React.FC<any> = (props) => {
 
     const dispatch = useDispatch()
     let refreshProfile = () => {
@@ -24,7 +24,6 @@ const ProfileContainer: React.FC = (props: any) => {
     return (
         <Profile isOwner={isOwner}/>
     )
-
 }
 
 export const ProfileURLMatch: React.FC = (props) => {
@@ -37,7 +36,7 @@ export const ProfileURLMatch: React.FC = (props) => {
             return navigate('/login')
         }
     })
-    // @ts-ignore
+
     return <ProfileContainer {...props} match={match} userId={userId}/>;
 }
 

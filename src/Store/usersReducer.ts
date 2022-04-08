@@ -3,7 +3,6 @@ import {ThunkAction} from "redux-thunk";
 import {appStateType, InferActionsTypes} from "./reduxStore";
 import {Dispatch} from "redux";
 
-
 export type usersReducerStateType = {
     name: string
     id: number
@@ -99,7 +98,7 @@ export const usersReducerActions = {
     setUsers: (users: usersReducerStateType) => {
         return ({type: 'SET_USERS', users} as const)
     },
-    unfollow: (usersId:number) => {
+    unfollow: (usersId :number) => {
         return ({type: 'UNFOLLOW', usersId} as const)
     },
 
@@ -138,7 +137,6 @@ export const setUsersThunkCreator = (pageNumber:number, pagesSize:number, term:s
         getUsersAPI.setUsersAPI(pageNumber, pagesSize, term, isFriend).then(data => {
             dispatch(usersReducerActions.setIsFetching(false))
             dispatch(usersReducerActions.setUsers(data.items))
-
         })
     }
 }

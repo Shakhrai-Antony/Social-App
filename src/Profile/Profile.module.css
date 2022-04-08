@@ -1,4 +1,5 @@
-
-.profile img{
-    width: 1000px;
+.profile {
+    width: 100%;
+    height: 100vh
 }
+

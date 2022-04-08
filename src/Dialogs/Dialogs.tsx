@@ -39,11 +39,13 @@ export const Dialogs: React.FC<dialogsStateType> = (props) => {
 
     return (
         <div className={s.dialogs}>
-            <div className={s.dialogsItem}>
-                {usersList}
-            </div>
-            <div className={s.messagesItem}>
-                {messagesList}
+            <div className={s.dialogsContainer}>
+                <div className={s.dialogsItem}>
+                    {usersList}
+                </div>
+                <div className={s.messagesItem}>
+                    {messagesList}
+                </div>
             </div>
 
             <div>

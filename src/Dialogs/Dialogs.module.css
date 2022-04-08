@@ -1,14 +1,10 @@
 .dialogs{
-    display: grid;
-    grid-template-columns: 2fr 10fr;
+    width: 100%;
+    height: 100vh;
 }
 
 .dialogsItem {
-    padding: 10px;
-}
-
-.messagesItem {
-    padding: 10px;
+    margin-right: 40px;
 }
 
 .activeLink {
@@ -19,4 +15,7 @@
 .link {
     text-decoration: none;
     color: black;
+}
+.dialogsContainer{
+    display: flex;
 }
