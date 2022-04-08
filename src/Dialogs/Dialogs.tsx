@@ -26,7 +26,7 @@ export const Dialogs: React.FC<DialogsStateType> = (props) => {
         <FriendsList key={u.id} id={u.id} name={u.name}/>
     )
 
-    const MessagesList = dialogs.map(m =>
+    const messages = dialogs.map(m =>
         <MessagesList key={m.id} message={m.message} id={m.id}/>)
 
     const onChangeNewMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,7 +44,7 @@ export const Dialogs: React.FC<DialogsStateType> = (props) => {
                     {usersList}
                 </div>
                 <div className={s.messagesItem}>
-                    {MessagesList}
+                    {messages}
                 </div>
             </div>
 
